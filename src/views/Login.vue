@@ -54,7 +54,6 @@ export default {
       axios.post("https://ewd-backend-main.herokuapp.com/api/authenticate", form, /*{withCredentials: true}*/).then(response => {
         //this.cookies.set('user', response.data);
       }).then(router.push('/dashboard'));
-
     }
 
     return {
