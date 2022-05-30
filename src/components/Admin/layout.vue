@@ -54,6 +54,7 @@
 
 <script>
 import Logout from "./logout.vue";
+import router from "../../router";
 
 export default {
   name: 'layout',
@@ -69,7 +70,9 @@ export default {
   methods: {},
 
   mounted() {
-
+    if (!this.$cookies.get('token')){
+      router.push('/login')
+    }
   },
 };
 </script>
