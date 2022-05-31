@@ -25,25 +25,42 @@ const router = createRouter({
             component: () => import('../components/Admin/Orders/index.vue')
         },
         {
+            path: '/categories/create',
+            name: 'create-categories',
+            component: () => import('../components/Admin/Categories/create.vue')
+        },
+        {
+            path: '/categories/edit/:id',
+            name: 'edit-categories',
+            component: () => import('../components/Admin/Categories/edit.vue')
+        },
+        {
             path: '/categories',
             name: 'categories',
             component: () => import('../components/Admin/Categories/index.vue')
         },
         {
+            path: '/dishes/edit/:id',
+            name: 'edit-dishes',
+            component: () => import('../components/Admin/Dishes/edit.vue')
+        },
+        {
+            path: '/dishes/create',
+            name: 'create-dishes',
+            component: () => import('../components/Admin/Dishes/create.vue')
+        },
+        {
             path: '/dishes',
             name: 'dishes',
-            component: () => import('../components/Admin/Dishes/index.vue')
+            component: () => import('../components/Admin/Dishes/index.vue'),
         },
+
         {
             path: '/clients',
             name: 'clients',
             component: () => import('../components/Admin/Clients/index.vue')
         },
 
-        {
-            path: '/:pathMatch(.*)*',
-            redirect: '/login',
-        }
     ]
 })
 
