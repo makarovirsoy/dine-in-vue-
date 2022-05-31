@@ -15,35 +15,35 @@
       <div class="inline text-5xl text-white">Wilkommen</div>
     </div>
 
-    <div class="p-4 justify-center">
-      <div class="flex flex-nowrap my-4 p-4 w-1/3 mx-auto overflow-scroll overflow-y-auto">
-        <div class="mx-2 p-2 border border-orange-400 rounded-xl text-orange-500" v-for="index in 10" :key="index">
-          category
+    <div class="p-4 justify-center" >
+      <div class="flex flex-nowrap my-4 p-4 w-1/3 mx-auto overflow-scroll overflow-y-auto" >
+        <div class="mx-2 p-2 border border-orange-400 rounded-xl text-orange-500 hover:cursor-pointer"
+             v-for="category in categories" :key="index" @click="updateCurrentCategory(category)">
+          {{ category.name }}
         </div>
       </div>
     </div>
 
-    <div class="mx-20 md:mx-80 mx-auto">
+    <div class="mx-20 md:mx-80 mx-auto" v-if="currentCategory">
       <div class="flex flex-row flex-wrap justify-center">
         <div class="bg-white rounded-xl border border-orange-200 shadow-md m-2 w-1/4 hover:cursor-pointer"
-             v-for="index in 10" :key="index" @click="openDishModal()">
+             v-for="dish in currentCategory.dishes" :key="index" @click="openDishModal(dish)">
           <img class="rounded-t-lg"
                src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg" alt="">
           <div class="p-5">
             <div class="flex justify-between">
-              <h5 class="text-2xl font-bold">Speise salat mit reis</h5>
-              <p class="text-xl text-orange-500">15 €</p>
+              <h5 class="text-2xl font-bold">{{ dish.name }}</h5>
+              <p class="text-xl text-orange-500">{{ dish.price }}</p>
             </div>
-            <p class="mt-2 font-normal text-gray-900 dark:text-gray-400">exerptexerptexerptexerptexerptexerpt
-              exerptexerptexerptexerpt</p>
+            <p class="mt-2 font-normal text-gray-900 dark:text-gray-400"> {{ dish.name }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <TransitionRoot as="template" :show="this.$data.dish">
-    <Dialog as="div" class="relative z-10" @close="this.$data.dish = false">
+  <TransitionRoot as="template" :show="this.$data.showDish">
+    <Dialog as="div" class="relative z-10" @close="this.$data.showDish = false">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
                        leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
@@ -61,7 +61,7 @@
 
               <div class="h-96 bg-amber-400 flex flex-col justify-between bg-cover bg-no-repeat items-end "
                    style="background-image: url('https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg')">
-                <div @click="this.$data.dish = false"
+                <div @click="this.$data.showDish = false"
                      class="mx-auto flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-100 h-10 w-10 mt-2 mr-4 hover:cursor-pointer">
                   <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
                 </div>
@@ -69,20 +69,19 @@
 
               <div class="m-5">
                 <div class="flex justify-between">
-                  <h5 class="text-2xl font-bold">Speise salat mit reis</h5>
-                  <p class="text-xl text-orange-500">15 €</p>
+                  <h5 class="text-2xl font-bold">{{ this.$data.currentDish.name }}</h5>
+                  <p class="text-xl text-orange-500">{{ this.$data.currentDish.price }}</p>
                 </div>
-                <p class="mt-2 font-normal text-gray-500">exerpt exerptexerptexe rptexerptexerpt
-                  exerptexer ptexe rptexerpt</p>
+                <p class="mt-2 font-normal text-gray-500">{{ this.$data.currentDish.description }}</p>
                 <hr class="my-4">
                 <h4 class="mt-4 text-xl font-bold">Zusatsstoffe</h4>
                 <div class="flex flex-wrap">
-                  <p class="mt-2 font-normal text-gray-500 mr-2" v-for="index in 15" :key="index"> Stoff</p>
+                  <p class="mt-2 font-normal text-gray-500 mr-2"> {{ this.$data.currentDish.additive }}</p>
                 </div>
                 <hr class="my-4">
                 <h4 class="mt-4 text-xl font-bold ">Allergene</h4>
                 <div class="flex flex-wrap">
-                  <p class="mt-2 font-normal text-gray-500 mr-2 " v-for="index in 10" :key="index"> allergene</p>
+                  <p class="mt-2 font-normal text-gray-500 mr-2 " >{{ this.$data.currentDish.allergy }}</p>
                 </div>
                 <hr class="my-4">
               </div>
@@ -194,12 +193,18 @@
                 <hr class="my-4">
 
                 <div class="flex flex-col">
-                  <input placeholder="name" type="text" id="name" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="email" type="email" id="email" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="tel" type="tel" id="tel" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="tel" type="tel" id="tel" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="tish" type="tel" id="tel" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <textarea placeholder="tish" type="tel" id="tel" class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2"></textarea>
+                  <input placeholder="name" type="text" id="name"
+                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <input placeholder="email" type="email" id="email"
+                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <input placeholder="tel" type="tel" id="tel"
+                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <input placeholder="tel" type="tel" id="tel"
+                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <input placeholder="tish" type="tel" id="tel"
+                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <textarea placeholder="tish" type="tel" id="tel"
+                            class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2"></textarea>
                 </div>
 
                 <hr class="my-4">
@@ -221,6 +226,7 @@
 
 import {Dialog, DialogPanel, DialogTitle, TransitionChild, TransitionRoot} from '@headlessui/vue'
 import {XIcon} from '@heroicons/vue/outline'
+import axios from "axios";
 
 export default {
   name: "home",
@@ -228,14 +234,19 @@ export default {
 
   data() {
     return {
-      dish: false,
+      showDish: false,
       cart: false,
       checkout: false,
+      categories: null,
+      currentCategory: null,
+      currentDish :null,
     }
   },
   methods: {
-    openDishModal() {
-      this.$data.dish = true;
+    openDishModal(dish) {
+      this.$data.showDish = true;
+      this.$data.currentDish = dish;
+
     },
     openCartModal() {
       this.$data.cart = true;
@@ -244,6 +255,20 @@ export default {
       this.$data.cart = false;
       this.$data.checkout = true;
     },
-  }
+    updateCurrentCategory(category) {
+      this.$data.currentCategory = category;
+
+    },
+  },
+
+  mounted() {
+    axios.get('https://ewdschrott.herokuapp.com/api/categories', {
+      headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+    }).then(response => {
+      this.$data.categories = response.data;
+      this.$data.currentCategory = this.$data.categories[0];
+      console.log(this.$data.currentCategory );
+    })
+  },
 }
 </script>
