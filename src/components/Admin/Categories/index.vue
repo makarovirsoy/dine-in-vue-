@@ -1,9 +1,9 @@
 <template>
   <Layout>
     <slot>
-      <div class="ml-20 py-4 flex-grow flex flex-col " v-bind:class="(createModalShowing)?'blur-sm':''">
+      <div class="ml-20 py-4 flex-grow flex flex-col ">
 
-        <div @click="createModalShowing = true"
+        <div @click="$router.push('/categories/create')"
              class="mx-20 mb-10 text-white bg-fuchsia-500 hover:bg-fuchsia-400 focus:ring-4 focus:outline-none focus:ring-fuchsia-600 font-medium rounded-full text-base px-6 py-4 text-center hover:cursor-pointer">
           Karegorie Hinzufügen
         </div>
@@ -27,36 +27,35 @@
             </tr>
             </thead>
             <tbody>
-
-            <tr class="border-b  odd:bg-white even:bg-gray-50 ">
+            <tr class="border-b  odd:bg-white even:bg-gray-50 " v-for="category in this.$data.categories">
               <th scope="row" class="px-6 py-4 font-medium text-fuchsia-900 ">
-                getränke
+                {{ category.name }}
               </th>
               <td class="px-6 py-4 text-fuchsia-400">
-                40
+                {{ category.id }}
               </td>
               <td class="px-6 py-4 text-left">
-
-                <a href="/categories/edit" class="font-medium text-green-600  hover:underline">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                       stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
-                  </svg>
-                </a>
-              </td>
-              <td class="px-6 py-4 text-left">
-                <form method="POST" action="/categories/6">
-                  <input type="hidden" name="_method" value="delete"/>
-                  <button type="submit" class="font-medium text-red-600  hover:underline">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                         viewBox="0 0 24 24"
+                <router-link :to="{'path':('/categories/edit/'+category.id) , props:{category: category}}">
+                  <div class="font-medium text-green-600  hover:underline">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                          stroke="currentColor" stroke-width="2">
                       <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
                     </svg>
-                  </button>
-                </form>
+                  </div>
+                </router-link>
+              </td>
+              <td class="px-6 py-4 text-left">
+                <div @click="deleteCategory(category.id)" class="font-medium text-red-600  hover:cursor-pointer">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                       viewBox="0 0 24 24"
+                       stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+
+                </div>
               </td>
             </tr>
 
@@ -64,7 +63,6 @@
           </table>
         </div>
       </div>
-      <Create :showing="createModalShowing" @close="createModalShowing = false"></Create>
 
     </slot>
   </Layout>
@@ -73,6 +71,7 @@
 <script>
 import Layout from "../layout.vue";
 import Create from "./create.vue";
+import axios from "axios";
 
 export default {
   name: 'index',
@@ -84,14 +83,31 @@ export default {
   data() {
     return {
       createModalShowing: false,
+      categories: null,
     };
   },
 
   computed: {},
 
-  methods: {},
+  methods: {
+    deleteCategory(id) {
+      if (!confirm('Sind Sie sicher die Kategory zu löschen?')) {
+        return
+      }
+      axios.delete("https://ewdschrott.herokuapp.com/api/categories/" + id, {
+        headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+      }).then(response => {
+        window.location.reload()
+      })
+    }
+  },
 
   mounted() {
+    axios.get('https://ewdschrott.herokuapp.com/api/categories', {
+      headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+    }).then(response => {
+      this.$data.categories = response.data;
+    });
   },
 };
 </script>

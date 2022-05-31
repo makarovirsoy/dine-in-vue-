@@ -1,22 +1,25 @@
 <template>
   <Layout>
-  <div >
-    <div class=" m-auto  w-3/4 h-auto outline-none overflow-x-hidden overflow-y-auto border border-fuchsia-500 rounded-2xl"
-        id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
-      <div class="modal-dialog relative w-auto pointer-events-none">
-        <div
-            class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+    <div>
+      <div
+          class=" m-auto  w-3/4 h-auto outline-none overflow-x-hidden overflow-y-auto border border-fuchsia-500 rounded-2xl"
+          id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog relative w-auto pointer-events-none">
           <div
-              class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-fuchsia-200 rounded-t-md">
-            <h5 class="text-xl font-medium leading-normal text-fuchsia-800" id="exampleModalLabel">Neue Kategorie hinzufügen</h5>
-          </div>
-          <div class="modal-body relative p-4">
+              class="modal-content border-none shadow-lg relative flex flex-col w-full pointer-events-auto bg-white bg-clip-padding rounded-md outline-none text-current">
+            <div
+                class="modal-header flex flex-shrink-0 items-center justify-between p-4 border-b border-fuchsia-200 rounded-t-md">
+              <h5 class="text-xl font-medium leading-normal text-fuchsia-800" id="exampleModalLabel">Kategorie bearbeiten</h5>
+
+            </div>
+            <div class="modal-body relative p-4">
 
 
               <div class="mb-6">
                 <label for="name" class="block mb-2 text-lg font-medium text-fuchsia-500">Kategorie Name</label>
                 <input type="text" id="name-input"
-                       class="bg-fuchsia-50 border border-fuchsia-300 text-fuchsia-900 text-xl rounded-lg focus:ring-blue-500 focus:border-fuchsia-500 block w-1/2 p-2 " v-model="form.name">
+                       class="bg-fuchsia-50 border border-fuchsia-300 text-fuchsia-900 text-xl rounded-lg focus:ring-blue-500 focus:border-fuchsia-500 block w-1/2 p-2 "
+                       v-model="form.name" :v-model="form.name">
               </div>
               <div
                   class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-fuchsia-200 rounded-b-md">
@@ -59,11 +62,11 @@
                 </button>
 
               </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   </Layout>
 </template>
 
@@ -92,16 +95,21 @@ export default {
 
   methods: {
     submit() {
-      console.log(this.$data.form);
-      axios.post('https://ewdschrott.herokuapp.com/api/categories', this.$data.form, {
+      axios.put('https://ewdschrott.herokuapp.com/api/categories', this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
-      })
-      router.push('/categories');
-    },
+      }).then(response => {
+        router.push('/categories');
+      });
+    }
   },
 
   mounted() {
-
+    axios.get('https://ewdschrott.herokuapp.com/api/categories/' + this.$route.params.id, {
+      headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
+    }).then(response => {
+      console.log(response);
+      this.$data.form = response.data
+    });
   },
 };
 </script>
