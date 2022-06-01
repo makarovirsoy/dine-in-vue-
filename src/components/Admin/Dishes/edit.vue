@@ -182,7 +182,7 @@ export default {
       this.$data.categories = response.data;
     });
 
-    axios.get('https://ewdschrott.herokuapp.com/api/dishs/' + this.$route.params.id, {
+    axios.get('https://ewdschrott.herokuapp.com/api/dishes/' + this.$route.params.id, {
       headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
     }).then(response => {
       this.$data.form = response.data
