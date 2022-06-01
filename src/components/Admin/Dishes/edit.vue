@@ -50,9 +50,7 @@
 
                   <div class="mb-6">
                     <label for="photo" class="block mb-2 text-lg font-medium text-emerald-500">Bild Hochladen</label>
-                    <div v-if="form.base64Image">
-                    <img src="{{form.base64Image}}" />
-                    </div>
+
                     <input
                         class="w-1/2 text-sm text-emerald-800 bg-emerald-50 rounded-lg border border-emerald-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent"
                         aria-describedby="cover" id="photo" type="file" >
