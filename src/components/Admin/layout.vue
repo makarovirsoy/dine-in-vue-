@@ -3,7 +3,7 @@
     <a href="/dashboard">
       <div class="text-gray-50">Dashboard</div>
     </a>
-    <a href="/home">
+    <a href="/">
       <div class="text-gray-50">Home</div>
     </a>
   </nav>
