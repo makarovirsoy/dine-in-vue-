@@ -6,17 +6,17 @@
 
       <div class="flex flex-row justify-end">
         <div class="flex flex-row bg-orange-500 p-2 rounded-2xl hover:cursor-pointer" @click="openCartModal()">
-          <div class="rounded-xl bg-white p-2">5</div>
+          <div class="rounded-xl bg-white p-2">{{ this.$data.cartProducts }}</div>
           <div class="ml-2 py-2">Bestellung ansehen</div>
-          <div class="ml-2 py-2">55€</div>
+          <div class="ml-2 py-2">{{ this.$data.cartPrice }} €</div>
         </div>
       </div>
 
       <div class="inline text-5xl text-white">Wilkommen</div>
     </div>
 
-    <div class="p-4 justify-center" >
-      <div class="flex flex-nowrap my-4 p-4 w-1/3 mx-auto overflow-scroll overflow-y-auto" >
+    <div class="p-4 justify-center">
+      <div class="flex flex-nowrap my-4 p-4 w-1/3 mx-auto overflow-scroll overflow-y-auto">
         <div class="mx-2 p-2 border border-orange-400 rounded-xl text-orange-500 hover:cursor-pointer"
              v-for="category in categories" :key="index" @click="updateCurrentCategory(category)">
           {{ category.name }}
@@ -81,19 +81,19 @@
                 <hr class="my-4">
                 <h4 class="mt-4 text-xl font-bold ">Allergene</h4>
                 <div class="flex flex-wrap">
-                  <p class="mt-2 font-normal text-gray-500 mr-2 " >{{ this.$data.currentDish.allergy }}</p>
+                  <p class="mt-2 font-normal text-gray-500 mr-2 ">{{ this.$data.currentDish.allergy }}</p>
                 </div>
                 <hr class="my-4">
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div class=" flex bg-orange-500 rounded-xl">
-                  <div class="py-2 p-4 hover:cursor-pointer text-xl">-</div>
-                  <div class="py-2 px-4 text-xl">1</div>
-                  <div class="py-2 p-4 hover:cursor-pointer text-xl">+</div>
+                  <div class="py-2 p-4 hover:cursor-pointer text-xl" @click="decrementOrderToPlace()">-</div>
+                  <div class="py-2 px-4 text-xl">{{ toOrderDishCount }}</div>
+                  <div class="py-2 p-4 hover:cursor-pointer text-xl" @click="incrementOrderToPlace()">+</div>
                 </div>
-                <div class="flex bg-orange-500 rounded-xl hover:cursor-pointer">
+                <div class="flex bg-orange-500 rounded-xl hover:cursor-pointer" @click="addToCart()">
                   <div class="py-2 px-4 text-xl">Bestellung aktualisieren</div>
-                  <div class="py-2 px-4 text-xl">15 €</div>
+                  <div class="py-2 px-4 text-xl">{{ currentDish.price * toOrderDishCount }} €</div>
                 </div>
               </div>
             </DialogPanel>
@@ -103,13 +103,12 @@
     </Dialog>
   </TransitionRoot>
 
-  <TransitionRoot as="template" :show="this.$data.cart">
-    <Dialog as="div" class="relative z-10" @close="this.$data.cart = false">
+  <TransitionRoot as="template" :show="this.$data.ShowCart">
+    <Dialog as="div" class="relative z-10" @close="this.$data.ShowCart = false">
       <TransitionChild as="template" enter="ease-out duration-300" enter-from="opacity-0" enter-to="opacity-100"
                        leave="ease-in duration-200" leave-from="opacity-100" leave-to="opacity-0">
         <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"/>
       </TransitionChild>
-
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div class="flex items-end sm:items-center justify-center min-h-full p-4 text-center sm:p-0">
           <TransitionChild as="template" enter="ease-out duration-300"
@@ -123,7 +122,7 @@
               <div class="m-5">
                 <div class="flex justify-between">
                   <h5 class="text-2xl font-bold">Bestellung</h5>
-                  <div @click="this.$data.cart = false"
+                  <div @click="this.$data.ShowCart = false"
                        class="flex-shrink-0 flex items-center justify-center h-8 w-8 rounded-full bg-orange-100  hover:cursor-pointer">
                     <XIcon class="h-4 w-4 text-orange-600" aria-hidden="true"/>
                   </div>
@@ -131,22 +130,27 @@
 
                 <hr class="my-4">
 
+                <div v-if="this.$data.cart.length === 0">Fügen Sie Ihre lieblings Speise.</div>
+
                 <div class="flex flex-wrap">
-                  <div class="font-normal flex w-full justify-between items-center my-2" v-for="index in 10"
+                  <div class="font-normal flex w-full justify-between items-center my-2"
+                       v-for="(orderedProduct,index) in this.$data.cart"
                        :key="index">
                     <div class="flex">
                       <img
                           src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
                           class="w-20 h-20 rounded-lg"/>
                       <div class="flex flex-col ml-2">
-                        <h4 class="mt-4 text-xl font-bold">speise</h4>
-                        <p class="text-xl text-orange-500">15 €</p>
+                        <h4 class="mt-4 text-xl font-bold">{{ orderedProduct.product.name }}</h4>
+                        <p class="text-xl text-orange-500">{{ orderedProduct.count * orderedProduct.product.price }}</p>
                       </div>
                     </div>
                     <div class=" flex bg-orange-500 rounded-xl h-fit ">
-                      <div class="p-2 hover:cursor-pointer text-xl">-</div>
-                      <div class="p-2 text-xl">1</div>
-                      <div class="p-2 hover:cursor-pointer text-xl">+</div>
+                      <div class="p-2 hover:cursor-pointer text-xl"
+                           @click="orderedProductCountDecrement(orderedProduct,index)">-
+                      </div>
+                      <div class="p-2 text-xl">{{ orderedProduct.count }}</div>
+                      <div class="p-2 hover:cursor-pointer text-xl" @click="orderedProduct.count++">+</div>
                     </div>
                   </div>
                 </div>
@@ -154,7 +158,9 @@
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div class="flex bg-orange-500 rounded-xl hover:cursor-pointer w-full">
-                  <div class="py-2 px-4 mx-auto text-xl " @click="openCheckoutModal()">Zur Kasse</div>
+                  <div class="py-2 px-4 mx-auto text-xl " @click="openCheckoutModal()">Zur Kasse
+                    {{ this.$data.cartPrice }}
+                  </div>
                 </div>
               </div>
             </DialogPanel>
@@ -193,17 +199,22 @@
                 <hr class="my-4">
 
                 <div class="flex flex-col">
+                  <label>Name</label>
                   <input placeholder="name" type="text" id="name"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <label>Email</label>
                   <input placeholder="email" type="email" id="email"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+                  <label>Telefon</label>
                   <input placeholder="tel" type="tel" id="tel"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="tel" type="tel" id="tel"
+                  <label>Tishnummer</label>
+                  <input placeholder="tish" type="number" id="number"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <input placeholder="tish" type="tel" id="tel"
-                         class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <textarea placeholder="tish" type="tel" id="tel"
+                  <label>zahlungsmethode</label>
+
+                  <label>Anmerkungen</label>
+                  <textarea placeholder="Anmerkungen" type="text" id="text"
                             class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2"></textarea>
                 </div>
 
@@ -235,31 +246,98 @@ export default {
   data() {
     return {
       showDish: false,
-      cart: false,
+      ShowCart: false,
       checkout: false,
       categories: null,
       currentCategory: null,
-      currentDish :null,
+      currentDish: null,
+      toOrderDishCount: 1,
+      cart: [],
+      cartPrice: 0,
+      cartProducts: 0,
     }
   },
   methods: {
     openDishModal(dish) {
       this.$data.showDish = true;
       this.$data.currentDish = dish;
+      this.$data.toOrderDishCount = 1;
+    },
 
-    },
     openCartModal() {
-      this.$data.cart = true;
+      this.$data.ShowCart = true;
     },
+
     openCheckoutModal() {
-      this.$data.cart = false;
+      this.$data.ShowCart = false;
       this.$data.checkout = true;
     },
+
     updateCurrentCategory(category) {
       this.$data.currentCategory = category;
+    },
+
+    decrementOrderToPlace() {
+      if (this.$data.toOrderDishCount > 1) {
+        this.$data.toOrderDishCount--;
+      }
+    },
+
+    incrementOrderToPlace() {
+      this.$data.toOrderDishCount++;
+    },
+
+    addToCart() {
+      let orderedProduct = {product: this.$data.currentDish, count: this.$data.toOrderDishCount};
+
+      if (this.$data.cart.some(item => item.product === this.$data.currentDish)) {
+        let index = this.$data.cart.findIndex(item => item.product.id === this.$data.currentDish.id);
+        this.$data.cart[index].count++;
+        this.$data.showDish = false;
+        return;
+      }
+      this.$data.cart = [...this.$data.cart, orderedProduct];
+      this.$data.showDish = false;
 
     },
+
+    orderedProductCountDecrement(product, index) {
+      product.count--;
+      if (product.count === 0) {
+        this.$data.cart.splice(index, 1);
+      }
+      ;
+    },
+
+    calculateCartProducts() {
+      this.$data.cartProducts = 0;
+      this.$data.cart.forEach(cart => {
+        this.$data.cartProducts = this.$data.cartProducts + cart.count;
+      });
+    },
+
+    calculateCartPrice() {
+      this.$data.cartPrice = 0;
+      this.$data.cart.forEach(cart => {
+        if (cart.product) {
+          this.$data.cartPrice = this.$data.cartPrice + cart.product.price * cart.count;
+        }
+      })
+    }
   },
+
+  watch: {
+    cart: {
+      handler(n, o) {
+        console.log(this.$data.cart)
+        this.calculateCartProducts();
+        this.calculateCartPrice();
+      }
+      ,
+      deep: true,
+    }
+  },
+
 
   mounted() {
     axios.get('https://ewdschrott.herokuapp.com/api/categories', {
@@ -267,7 +345,6 @@ export default {
     }).then(response => {
       this.$data.categories = response.data;
       this.$data.currentCategory = this.$data.categories[0];
-      console.log(this.$data.currentCategory );
     })
   },
 }
