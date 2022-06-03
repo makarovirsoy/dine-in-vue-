@@ -75,7 +75,7 @@
 import axios from "axios";
 import VueCookies from "vue-cookies";
 import router from "../../../router";
-import Layout from "../Layout.vue";
+import Layout from "../layout.vue";
 
 export default {
   name: 'create',
