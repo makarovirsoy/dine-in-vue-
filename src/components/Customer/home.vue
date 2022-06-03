@@ -200,21 +200,37 @@
 
                 <div class="flex flex-col">
                   <label>Name</label>
-                  <input placeholder="name" type="text" id="name"
+                  <input placeholder="name" type="text" id="name" v-model="this.$data.checkoutForm.name"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+
                   <label>Email</label>
-                  <input placeholder="email" type="email" id="email"
+                  <input placeholder="email" type="email" id="email" v-model="this.$data.checkoutForm.email"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+
                   <label>Telefon</label>
-                  <input placeholder="tel" type="tel" id="tel"
+                  <input placeholder="tel" type="tel" id="tel" v-model="this.$data.checkoutForm.tel"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
+
                   <label>Tishnummer</label>
-                  <input placeholder="tish" type="number" id="number"
+                  <input placeholder="tish" type="number" id="table" v-model="this.$data.checkoutForm.table"
                          class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2 mb-4">
-                  <label>zahlungsmethode</label>
+
+                  <label>Zahlungsmethode</label>
+                  <div class="flex items-center mr-4 mb-4">
+                    <input id="paypal" type="radio" name="paypal" value="paypal" checked
+                           v-model="this.$data.checkoutForm.payment"/>
+                    <label for="radio1" class=" ml-2 flex items-center cursor-pointer">
+                      Paypal</label>
+                  </div>
+
+                  <div class="flex items-center mr-4 mb-4">
+                    <input id="cash" type="radio" name="cash" value="cash" v-model="this.$data.checkoutForm.payment"/>
+                    <label for="radio2" class="ml-2  flex items-center cursor-pointer">
+                      Bar geld</label>
+                  </div>
 
                   <label>Anmerkungen</label>
-                  <textarea placeholder="Anmerkungen" type="text" id="text"
+                  <textarea placeholder="Anmerkungen" type="text" id="text" v-model="this.$data.checkoutForm.comment"
                             class="bg-orange-50 border border-orange-300 text-orange-900 text-xl rounded-lg focus:ring-orange-500 focus:border-orange-500 block p-2"></textarea>
                 </div>
 
@@ -222,7 +238,7 @@
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div class="flex bg-orange-500 rounded-xl hover:cursor-pointer w-full">
-                  <div class="py-2 px-4 mx-auto text-xl ">Zahlen</div>
+                  <div class="py-2 px-4 mx-auto text-xl " @click="postOrder()">Bezahlen - {{this.$data.cartPrice}} €</div>
                 </div>
               </div>
             </DialogPanel>
@@ -255,6 +271,14 @@ export default {
       cart: [],
       cartPrice: 0,
       cartProducts: 0,
+      checkoutForm: {
+        name: null,
+        email: null,
+        tel: null,
+        table: null,
+        payment: null,
+        comment: null,
+      }
     }
   },
   methods: {
@@ -298,7 +322,6 @@ export default {
       }
       this.$data.cart = [...this.$data.cart, orderedProduct];
       this.$data.showDish = false;
-
     },
 
     orderedProductCountDecrement(product, index) {
@@ -323,7 +346,17 @@ export default {
           this.$data.cartPrice = this.$data.cartPrice + cart.product.price * cart.count;
         }
       })
-    }
+    },
+
+    postOrder() {
+      console.log({checkout: this.$data.checkoutForm, cart: this.$data.cart, sum: this.$data.cartPrice});
+      /*axios.post('https://ewdschrott.herokuapp.com/api/orders', this.$data.checkoutForm, {
+        headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+      }).then(response => {
+        this.$data.categories = response.data;
+        this.$data.currentCategory = this.$data.categories[0];
+      })*/
+    },
   },
 
   watch: {
