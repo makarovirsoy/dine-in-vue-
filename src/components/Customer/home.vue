@@ -158,7 +158,7 @@
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div class="flex bg-orange-500 rounded-xl hover:cursor-pointer w-full">
-                  <div class="py-2 px-4 mx-auto text-xl " @click="openCheckoutModal()">Zur Kasse
+                  <div class="py-2 px-4 mx-auto text-xl " @click="openCheckoutModal()" v-if="cartProducts > 0">Zur Kasse
                     {{ this.$data.cartPrice }}
                   </div>
                 </div>
@@ -370,7 +370,6 @@ export default {
       deep: true,
     }
   },
-
 
   mounted() {
     axios.get('https://ewdschrott.herokuapp.com/api/categories', {
