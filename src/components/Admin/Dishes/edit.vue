@@ -132,7 +132,7 @@
 <script>
 import axios from "axios";
 import VueCookies from "vue-cookies";
-import Layout from "../Layout.vue";
+import Layout from "../layout.vue";
 
 export default {
   name: 'create',
