@@ -73,6 +73,8 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 import router from "../../../router";
 import Layout from "../layout.vue";
+import {url_api} from "../../../const/api"
+
 
 export default {
   name: 'create',
@@ -93,7 +95,7 @@ export default {
   methods: {
     submit() {
       console.log(this.$data.form);
-      axios.post('https://ewdschrott.herokuapp.com/api/categories', this.$data.form, {
+      axios.post(url_api + 'api/categories', this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
       })
       router.push('/categories');

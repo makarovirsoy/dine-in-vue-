@@ -37,6 +37,7 @@
 import axios from 'axios';
 import {useRouter} from "vue-router";
 import router from "../router";
+import {url_api} from "../const/api"
 
 export default {
 
@@ -57,7 +58,7 @@ export default {
 
   methods: {
     submit: function () {
-      axios.get("https://ewdschrott.herokuapp.com/api/login", {
+      axios.get(url_api + "api/login", {
         'headers': {'Authorization': 'Basic ' + btoa(this.$data.username + ':' + this.$data.password)},
       }).then(response => {
         if (response.headers.token){

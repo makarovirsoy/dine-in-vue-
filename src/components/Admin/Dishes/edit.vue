@@ -133,6 +133,7 @@
 import axios from "axios";
 import VueCookies from "vue-cookies";
 import Layout from "../layout.vue";
+import { url_api } from '../../../const/api';
 
 export default {
   name: 'create',
@@ -165,7 +166,7 @@ export default {
   methods: {
     submit: function () {
       console.log(this.$data.form);
-      axios.put('https://ewdschrott.herokuapp.com/api/dishs/'+this.$route.params.id, this.$data.form, {
+      axios.put(url_api + 'api/dishs/'+this.$route.params.id, this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
       }).then(response => {
         console.log(response.data);
@@ -176,13 +177,13 @@ export default {
   },
 
   mounted() {
-    axios.get('https://ewdschrott.herokuapp.com/api/categories', {
+    axios.get(url_api + 'api/categories', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
       this.$data.categories = response.data;
     });
 
-    axios.get('https://ewdschrott.herokuapp.com/api/dishes/' + this.$route.params.id, {
+    axios.get(url_api + 'api/dishes/' + this.$route.params.id, {
       headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
     }).then(response => {
       this.$data.form = response.data

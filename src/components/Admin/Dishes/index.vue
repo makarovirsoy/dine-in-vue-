@@ -91,6 +91,7 @@
 import Layout from "../layout.vue";
 import Create from "./create.vue";
 import axios from "axios";
+import {url_api} from "../../../const/api"
 
 export default {
   name: 'index',
@@ -113,7 +114,7 @@ export default {
       if (!confirm('Sind Sie sicher die Speise zu löschen?')) {
         return
       }
-      axios.delete("https://ewdschrott.herokuapp.com/api/dishes/" + id, {
+      axios.delete(url_api +  "api/dishes/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
       }).then(response => {
         window.location.reload();
@@ -122,7 +123,7 @@ export default {
   },
 
   mounted() {
-    axios.get('https://ewdschrott.herokuapp.com/api/dishes', {
+    axios.get(url_api + 'api/dishes', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
 
