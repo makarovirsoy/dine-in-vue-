@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col h-screen">
     <div
-      class="
+        class="
         h-96
         bg-amber-400
         py-10
@@ -10,18 +10,18 @@
         justify-between
         bg-cover bg-no-repeat
       "
-      style="background-image: url('https://wallpaper.dog/large/20491982.jpg')"
+        style="background-image: url('https://wallpaper.dog/large/20491982.jpg')"
     >
       <div class="flex flex-row justify-end">
         <div
-          class="
+            class="
             flex flex-row
             bg-orange-500
             p-2
             rounded-2xl
             hover:cursor-pointer
           "
-          @click="openCartModal()"
+            @click="openCartModal()"
         >
           <div class="rounded-xl bg-white p-2">
             {{ this.$data.cartProducts }}
@@ -36,7 +36,7 @@
 
     <div class="p-4 justify-center">
       <div
-        class="
+          class="
           flex flex-nowrap
           my-4
           p-4
@@ -46,7 +46,7 @@
         "
       >
         <div
-          class="
+            class="
             mx-2
             p-2
             border border-orange-400
@@ -54,9 +54,9 @@
             text-orange-500
             hover:cursor-pointer
           "
-          v-for="category in categories"
-          :key="index"
-          @click="updateCurrentCategory(category)"
+            v-for="category in categories"
+            :key="index"
+            @click="updateCurrentCategory(category)"
         >
           {{ category.name }}
         </div>
@@ -66,7 +66,7 @@
     <div class="mx-20 md:mx-80 mx-auto" v-if="currentCategory">
       <div class="flex flex-row flex-wrap justify-center">
         <div
-          class="
+            class="
             bg-white
             rounded-xl
             border border-orange-200
@@ -75,14 +75,14 @@
             w-1/4
             hover:cursor-pointer
           "
-          v-for="dish in currentCategory.dishes"
-          :key="index"
-          @click="openDishModal(dish)"
+            v-for="dish in currentCategory.dishes"
+            :key="index"
+            @click="openDishModal(dish)"
         >
           <img
-            class="rounded-t-lg"
-            src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
-            alt=""
+              class="rounded-t-lg"
+              src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
+              alt=""
           />
           <div class="p-5">
             <div class="flex justify-between">
@@ -101,22 +101,22 @@
   <TransitionRoot as="template" :show="this.$data.showDish">
     <Dialog as="div" class="relative z-10" @close="this.$data.showDish = false">
       <TransitionChild
-        as="template"
-        enter="ease-out duration-300"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="ease-in duration-200"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
       >
         <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         />
       </TransitionChild>
 
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div
-          class="
+            class="
             flex
             items-end
             sm:items-center
@@ -128,16 +128,16 @@
           "
         >
           <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100 translate-y-0 sm:scale-100"
-            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              as="template"
+              enter="ease-out duration-300"
+              enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter-to="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leave-from="opacity-100 translate-y-0 sm:scale-100"
+              leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="
+                class="
                 relative
                 bg-white
                 rounded-lg
@@ -151,7 +151,7 @@
               "
             >
               <div
-                class="
+                  class="
                   h-96
                   bg-amber-400
                   flex flex-col
@@ -159,13 +159,13 @@
                   bg-cover bg-no-repeat
                   items-end
                 "
-                style="
+                  style="
                   background-image: url('https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg');
                 "
               >
                 <div
-                  @click="this.$data.showDish = false"
-                  class="
+                    @click="this.$data.showDish = false"
+                    class="
                     mx-auto
                     flex-shrink-0 flex
                     items-center
@@ -181,7 +181,7 @@
                     hover:cursor-pointer
                   "
                 >
-                  <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true" />
+                  <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
                 </div>
               </div>
 
@@ -197,41 +197,41 @@
                 <p class="mt-2 font-normal text-gray-500">
                   {{ this.$data.currentDish.description }}
                 </p>
-                <hr class="my-4" />
+                <hr class="my-4"/>
                 <h4 class="mt-4 text-xl font-bold">Zusatsstoffe</h4>
                 <div class="flex flex-wrap">
                   <p class="mt-2 font-normal text-gray-500 mr-2">
                     {{ this.$data.currentDish.additive }}
                   </p>
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4"/>
                 <h4 class="mt-4 text-xl font-bold">Allergene</h4>
                 <div class="flex flex-wrap">
                   <p class="mt-2 font-normal text-gray-500 mr-2">
                     {{ this.$data.currentDish.allergy }}
                   </p>
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4"/>
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div class="flex bg-orange-500 rounded-xl">
                   <div
-                    class="py-2 p-4 hover:cursor-pointer text-xl"
-                    @click="decrementOrderToPlace()"
+                      class="py-2 p-4 hover:cursor-pointer text-xl"
+                      @click="decrementOrderToPlace()"
                   >
                     -
                   </div>
                   <div class="py-2 px-4 text-xl">{{ toOrderDishCount }}</div>
                   <div
-                    class="py-2 p-4 hover:cursor-pointer text-xl"
-                    @click="incrementOrderToPlace()"
+                      class="py-2 p-4 hover:cursor-pointer text-xl"
+                      @click="incrementOrderToPlace()"
                   >
                     +
                   </div>
                 </div>
                 <div
-                  class="flex bg-orange-500 rounded-xl hover:cursor-pointer"
-                  @click="addToCart()"
+                    class="flex bg-orange-500 rounded-xl hover:cursor-pointer"
+                    @click="addToCart()"
                 >
                   <div class="py-2 px-4 text-xl">Bestellung aktualisieren</div>
                   <div class="py-2 px-4 text-xl">
@@ -249,21 +249,21 @@
   <TransitionRoot as="template" :show="this.$data.ShowCart">
     <Dialog as="div" class="relative z-10" @close="this.$data.ShowCart = false">
       <TransitionChild
-        as="template"
-        enter="ease-out duration-300"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="ease-in duration-200"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
       >
         <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         />
       </TransitionChild>
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div
-          class="
+            class="
             flex
             items-end
             sm:items-center
@@ -275,16 +275,16 @@
           "
         >
           <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100 translate-y-0 sm:scale-100"
-            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              as="template"
+              enter="ease-out duration-300"
+              enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter-to="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leave-from="opacity-100 translate-y-0 sm:scale-100"
+              leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="
+                class="
                 relative
                 bg-white
                 rounded-lg
@@ -301,8 +301,8 @@
                 <div class="flex justify-between">
                   <h5 class="text-2xl font-bold">Bestellung</h5>
                   <div
-                    @click="this.$data.ShowCart = false"
-                    class="
+                      @click="this.$data.ShowCart = false"
+                      class="
                       flex-shrink-0 flex
                       items-center
                       justify-center
@@ -313,11 +313,11 @@
                       hover:cursor-pointer
                     "
                   >
-                    <XIcon class="h-4 w-4 text-orange-600" aria-hidden="true" />
+                    <XIcon class="h-4 w-4 text-orange-600" aria-hidden="true"/>
                   </div>
                 </div>
 
-                <hr class="my-4" />
+                <hr class="my-4"/>
 
                 <div v-if="this.$data.checkoutForm.cart.length === 0">
                   Fügen Sie Ihre lieblings Speise.
@@ -325,7 +325,7 @@
 
                 <div class="flex flex-wrap">
                   <div
-                    class="
+                      class="
                       font-normal
                       flex
                       w-full
@@ -333,13 +333,13 @@
                       items-center
                       my-2
                     "
-                    v-for="(orderedProduct, index) in this.$data.checkoutForm.cart"
-                    :key="index"
+                      v-for="(orderedProduct, index) in this.$data.checkoutForm.cart"
+                      :key="index"
                   >
                     <div class="flex">
                       <img
-                        src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
-                        class="w-20 h-20 rounded-lg"
+                          src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
+                          class="w-20 h-20 rounded-lg"
                       />
                       <div class="flex flex-col ml-2">
                         <h4 class="mt-4 text-xl font-bold">
@@ -354,8 +354,8 @@
                     </div>
                     <div class="flex bg-orange-500 rounded-xl h-fit">
                       <div
-                        class="p-2 hover:cursor-pointer text-xl"
-                        @click="
+                          class="p-2 hover:cursor-pointer text-xl"
+                          @click="
                           orderedProductCountDecrement(orderedProduct, index)
                         "
                       >
@@ -363,19 +363,19 @@
                       </div>
                       <div class="p-2 text-xl">{{ orderedProduct.count }}</div>
                       <div
-                        class="p-2 hover:cursor-pointer text-xl"
-                        @click="orderedProduct.count++"
+                          class="p-2 hover:cursor-pointer text-xl"
+                          @click="orderedProduct.count++"
                       >
                         +
                       </div>
                     </div>
                   </div>
                 </div>
-                <hr class="my-4" />
+                <hr class="my-4"/>
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div
-                  class="
+                    class="
                     flex
                     bg-orange-500
                     rounded-xl
@@ -384,9 +384,9 @@
                   "
                 >
                   <div
-                    class="py-2 px-4 mx-auto text-xl"
-                    @click="openCheckoutModal()"
-                    v-if="cartProducts > 0"
+                      class="py-2 px-4 mx-auto text-xl"
+                      @click="openCheckoutModal()"
+                      v-if="cartProducts > 0"
                   >
                     Zur Kasse
                     {{ this.$data.checkoutForm.sum }}
@@ -403,22 +403,22 @@
   <TransitionRoot as="template" :show="this.$data.checkout">
     <Dialog as="div" class="relative z-10" @close="this.$data.checkout = false">
       <TransitionChild
-        as="template"
-        enter="ease-out duration-300"
-        enter-from="opacity-0"
-        enter-to="opacity-100"
-        leave="ease-in duration-200"
-        leave-from="opacity-100"
-        leave-to="opacity-0"
+          as="template"
+          enter="ease-out duration-300"
+          enter-from="opacity-0"
+          enter-to="opacity-100"
+          leave="ease-in duration-200"
+          leave-from="opacity-100"
+          leave-to="opacity-0"
       >
         <div
-          class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+            class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
         />
       </TransitionChild>
 
       <div class="fixed z-10 inset-0 overflow-y-auto">
         <div
-          class="
+            class="
             flex
             items-end
             sm:items-center
@@ -430,16 +430,16 @@
           "
         >
           <TransitionChild
-            as="template"
-            enter="ease-out duration-300"
-            enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
-            enter-to="opacity-100 translate-y-0 sm:scale-100"
-            leave="ease-in duration-200"
-            leave-from="opacity-100 translate-y-0 sm:scale-100"
-            leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              as="template"
+              enter="ease-out duration-300"
+              enter-from="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+              enter-to="opacity-100 translate-y-0 sm:scale-100"
+              leave="ease-in duration-200"
+              leave-from="opacity-100 translate-y-0 sm:scale-100"
+              leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="
+                class="
                 relative
                 bg-white
                 rounded-lg
@@ -456,8 +456,8 @@
                 <div class="flex justify-between">
                   <h5 class="text-2xl font-bold">Kasse</h5>
                   <div
-                    @click="this.$data.checkout = false"
-                    class="
+                      @click="this.$data.checkout = false"
+                      class="
                       flex-shrink-0 flex
                       items-center
                       justify-center
@@ -468,20 +468,20 @@
                       hover:cursor-pointer
                     "
                   >
-                    <XIcon class="h-4 w-4 text-orange-600" aria-hidden="true" />
+                    <XIcon class="h-4 w-4 text-orange-600" aria-hidden="true"/>
                   </div>
                 </div>
 
-                <hr class="my-4" />
+                <hr class="my-4"/>
 
                 <div class="flex flex-col">
                   <label>Name</label>
                   <input
-                    placeholder="name"
-                    type="text"
-                    id="name"
-                    v-model="this.$data.checkoutForm.client.name"
-                    class="
+                      placeholder="name"
+                      type="text"
+                      id="name"
+                      v-model="this.$data.checkoutForm.client.name"
+                      class="
                       bg-orange-50
                       border border-orange-300
                       text-orange-900 text-xl
@@ -495,11 +495,11 @@
 
                   <label>Email</label>
                   <input
-                    placeholder="email"
-                    type="email"
-                    id="email"
-                    v-model="this.$data.checkoutForm.client.email"
-                    class="
+                      placeholder="email"
+                      type="email"
+                      id="email"
+                      v-model="this.$data.checkoutForm.client.email"
+                      class="
                       bg-orange-50
                       border border-orange-300
                       text-orange-900 text-xl
@@ -513,11 +513,11 @@
 
                   <label>Telefon</label>
                   <input
-                    placeholder="tel"
-                    type="tel"
-                    id="tel"
-                    v-model="this.$data.checkoutForm.client.phone"
-                    class="
+                      placeholder="tel"
+                      type="tel"
+                      id="tel"
+                      v-model="this.$data.checkoutForm.client.phone"
+                      class="
                       bg-orange-50
                       border border-orange-300
                       text-orange-900 text-xl
@@ -531,11 +531,11 @@
 
                   <label>Tishnummer</label>
                   <input
-                    placeholder="tish"
-                    type="number"
-                    id="table"
-                    v-model="this.$data.checkoutForm.table"
-                    class="
+                      placeholder="tish"
+                      type="number"
+                      id="table"
+                      v-model="this.$data.checkoutForm.table"
+                      class="
                       bg-orange-50
                       border border-orange-300
                       text-orange-900 text-xl
@@ -550,16 +550,16 @@
                   <label>Zahlungsmethode</label>
                   <div class="flex items-center mr-4 mb-4">
                     <input
-                      id="paypal"
-                      type="radio"
-                      name="paypal"
-                      value="paypal"
-                      checked
-                      v-model="this.$data.checkoutForm.payment"
+                        id="paypal"
+                        type="radio"
+                        name="paypal"
+                        value="paypal"
+                        checked
+                        v-model="this.$data.checkoutForm.payment"
                     />
                     <label
-                      for="radio1"
-                      class="ml-2 flex items-center cursor-pointer"
+                        for="radio1"
+                        class="ml-2 flex items-center cursor-pointer"
                     >
                       Paypal</label
                     >
@@ -567,15 +567,15 @@
 
                   <div class="flex items-center mr-4 mb-4">
                     <input
-                      id="cash"
-                      type="radio"
-                      name="cash"
-                      value="cash"
-                      v-model="this.$data.checkoutForm.payment"
+                        id="cash"
+                        type="radio"
+                        name="cash"
+                        value="cash"
+                        v-model="this.$data.checkoutForm.payment"
                     />
                     <label
-                      for="radio2"
-                      class="ml-2 flex items-center cursor-pointer"
+                        for="radio2"
+                        class="ml-2 flex items-center cursor-pointer"
                     >
                       Bar geld</label
                     >
@@ -583,11 +583,11 @@
 
                   <label>Anmerkungen</label>
                   <textarea
-                    placeholder="Anmerkungen"
-                    type="text"
-                    id="text"
-                    v-model="this.$data.checkoutForm.comment"
-                    class="
+                      placeholder="Anmerkungen"
+                      type="text"
+                      id="text"
+                      v-model="this.$data.checkoutForm.comment"
+                      class="
                       bg-orange-50
                       border border-orange-300
                       text-orange-900 text-xl
@@ -599,11 +599,11 @@
                   ></textarea>
                 </div>
 
-                <hr class="my-4" />
+                <hr class="my-4"/>
               </div>
               <div class="flex mx-5 justify-around mb-2 text-white mb-5">
                 <div
-                  class="
+                    class="
                     flex
                     bg-orange-500
                     rounded-xl
@@ -632,9 +632,9 @@ import {
   TransitionChild,
   TransitionRoot,
 } from "@headlessui/vue";
-import { XIcon } from "@heroicons/vue/outline";
+import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
-import { url_api } from "../../const/api";
+import {url_api} from "../../const/api";
 
 export default {
   name: "home",
@@ -669,7 +669,7 @@ export default {
           phone: "+49FXXXZZZFFF",
         },
 
-        
+
       },
     };
   },
@@ -710,10 +710,10 @@ export default {
       };
 
       if (
-        this.$data.checkoutForm.cart.some((item) => item.product === this.$data.currentDish)
+          this.$data.checkoutForm.cart.some((item) => item.product === this.$data.currentDish)
       ) {
         let index = this.$data.checkoutForm.cart.findIndex(
-          (item) => item.product.id === this.$data.currentDish.id
+            (item) => item.product.id === this.$data.currentDish.id
         );
         this.$data.checkoutForm.cart[index].count++;
         this.$data.showDish = false;
@@ -742,7 +742,7 @@ export default {
       this.$data.checkoutForm.cart.forEach((cart) => {
         if (cart.product) {
           this.$data.checkoutForm.sum =
-            this.$data.checkoutForm.sum + cart.product.price * cart.count;
+              this.$data.checkoutForm.sum + cart.product.price * cart.count;
         }
       });
     },
@@ -754,13 +754,13 @@ export default {
       };
       console.log(request);
       axios
-        .post(url_api + "api/orders", request, {
-          headers: { Authorization: "Bearer " + this.$cookies.get("token") },
-        })
-        .then((response) => {
-          this.$data.categories = response.data;
-          this.$data.currentCategory = this.$data.categories[0];
-        });
+          .post(url_api + "api/orders", request, {
+            headers: {Authorization: "Bearer " + this.$cookies.get("token")},
+          })
+          .then((response) => {
+            this.$data.categories = response.data;
+            this.$data.currentCategory = this.$data.categories[0];
+          });
     },
   },
 
@@ -777,13 +777,13 @@ export default {
 
   mounted() {
     axios
-      .get(url_api + "api/categories", {
-        headers: { Authorization: "Bearer " + this.$cookies.get("token") },
-      })
-      .then((response) => {
-        this.$data.categories = response.data;
-        this.$data.currentCategory = this.$data.categories[0];
-      });
+        .get(url_api + "api/categories", {
+          headers: {Authorization: "Bearer " + this.$cookies.get("token")},
+        })
+        .then((response) => {
+          this.$data.categories = response.data;
+          this.$data.currentCategory = this.$data.categories[0];
+        });
   },
 };
 </script>
