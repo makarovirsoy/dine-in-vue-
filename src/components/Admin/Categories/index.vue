@@ -72,6 +72,8 @@
 import Layout from "../layout.vue";
 import Create from "./create.vue";
 import axios from "axios";
+import {url_api} from "../../../const/api"
+
 
 export default {
   name: 'index',
@@ -94,7 +96,7 @@ export default {
       if (!confirm('Sind Sie sicher die Kategory zu löschen?')) {
         return
       }
-      axios.delete("https://ewdschrott.herokuapp.com/api/categories/" + id, {
+      axios.delete(url_api + "api/categories/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
       }).then(response => {
         window.location.reload()
@@ -103,7 +105,7 @@ export default {
   },
 
   mounted() {
-    axios.get('https://ewdschrott.herokuapp.com/api/categories', {
+    axios.get(url_api + 'api/categories', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
       this.$data.categories = response.data;
