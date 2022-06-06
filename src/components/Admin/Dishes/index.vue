@@ -126,7 +126,6 @@ export default {
     axios.get(url_api + 'api/dishes', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
-        console.log(response);
       this.$data.dishes = response.data;
       console.log(this.$data.dishes[0]);
     });
