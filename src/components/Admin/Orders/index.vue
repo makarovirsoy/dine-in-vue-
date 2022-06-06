@@ -27,20 +27,20 @@
 
             <tbody>
             <tr class="bg-white border-b text-purple-400">
-              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap">
-                002
+              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap" v-for="order in this.$data.orders">
+                 order.id
               </th>
               <td class="px-6 py-4">
                 lifetung
               </td>
               <td class="px-6 py-4">
-                3
+                order.status
               </td>
               <td class="px-6 py-4">
-                $2999
+                 order.sum
               </td>
               <td class="px-6 py-4">
-                paypal
+                 order.payment
               </td>
             </tr>
             </tbody>
@@ -53,6 +53,8 @@
 
 <script>
 import Layout from '../layout.vue'
+import axios from "axios";
+import {url_api} from "../../../const/api";
 
 
 export default {
@@ -61,7 +63,9 @@ export default {
   props: {},
 
   data() {
-    return {};
+    return {
+      orders: null,
+    };
   },
 
   computed: {},
@@ -69,6 +73,11 @@ export default {
   methods: {},
 
   mounted() {
+    axios.get(url_api + 'api/orders', {
+      headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+    }).then(response => {
+      this.$data.orders = response.data;
+    });
   },
 
 };

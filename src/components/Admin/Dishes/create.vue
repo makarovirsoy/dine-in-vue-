@@ -144,10 +144,10 @@ export default {
       const selectedImage = e.target.files[0];
       const reader = new FileReader();
 
-      reader.onload = (e) => {
+      reader.onloadend = (e) => {
         this.form.dish.base64Image = e.target.result;
       };
-      reader.readAsBinaryString(selectedImage);
+      reader.readAsDataURL(selectedImage);
     },
   },
 

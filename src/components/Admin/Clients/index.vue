@@ -19,15 +19,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr class="border-b  odd:bg-white even:bg-gray-50 ">
+            <tr class="border-b  odd:bg-white even:bg-gray-50 " v-for="client in this.$data.clients">
               <th scope="row" class="px-6 py-4 font-medium text-cyan-900 ">
-                momo
+                {{ client.name }}
               </th>
               <td class="px-6 py-4 text-cyan-400">
-                40
+                {{ client.name }}
               </td>
               <td class="px-6 py-4 text-cyan-400">
-                kunde@email.ce
+                {{ client.email }}
               </td>
             </tr>
             </tbody>
@@ -40,6 +40,8 @@
 
 <script>
 import Layout from "../layout.vue";
+import axios from "axios";
+import {url_api} from "../../../const/api";
 
 export default {
   name: 'index',
@@ -49,7 +51,9 @@ export default {
   props: {},
 
   data() {
-    return {};
+    return {
+      clients: null,
+    };
   },
 
   computed: {},
@@ -57,6 +61,11 @@ export default {
   methods: {},
 
   mounted() {
+    axios.get(url_api + 'api/clients', {
+      headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+    }).then(response => {
+      this.$data.clients = response.data;
+    });
   },
 };
 </script>

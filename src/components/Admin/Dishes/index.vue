@@ -103,7 +103,7 @@ export default {
   data() {
     return {
       createModalShowing: false,
-      dishes: [Array, Object],
+      dishes: null,
     };
   },
 
