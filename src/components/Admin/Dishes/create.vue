@@ -137,7 +137,7 @@ export default {
       axios.post(url_api + 'api/adddishtocategory', this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
       }).then(response => {
-        $router.push('/dishes')
+        router.push('/dishes')
       });
     },
     handleImage(e) {
