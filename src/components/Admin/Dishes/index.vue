@@ -41,7 +41,7 @@
               </th>
 
               <td class="px-6 py-4 text-emerald-400">
-                {{ dish.category }}
+                {{ dish.categoryName }}
               </td>
 
               <td class="px-6 py-4 text-emerald-400">
@@ -126,7 +126,7 @@ export default {
     axios.get(url_api + 'api/dishes', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
-
+        console.log(response);
       this.$data.dishes = response.data;
       console.log(this.$data.dishes[0]);
     });
