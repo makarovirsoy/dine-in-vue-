@@ -79,10 +79,11 @@
             :key="index"
             @click="openDishModal(dish)"
         >
+
           <img
               class="rounded-t-lg"
-              src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
-              alt=""
+              src="{{dish.base64Image}}"
+              alt="dish"
           />
           <div class="p-5">
             <div class="flex justify-between">
@@ -678,6 +679,7 @@ export default {
       this.$data.showDish = true;
       this.$data.currentDish = dish;
       this.$data.toOrderDishCount = 1;
+      console.log(dish);
     },
 
     openCartModal() {
@@ -754,9 +756,7 @@ export default {
       };
       console.log(request);
       axios
-          .post(url_api + "api/orders", request, {
-            headers: {Authorization: "Bearer " + this.$cookies.get("token")},
-          })
+          .post(url_api + "api/orders", request, )
           .then((response) => {
             this.$data.categories = response.data;
             this.$data.currentCategory = this.$data.categories[0];
@@ -777,9 +777,7 @@ export default {
 
   mounted() {
     axios
-        .get(url_api + "api/categories", {
-          headers: {Authorization: "Bearer " + this.$cookies.get("token")},
-        })
+        .get(url_api + "api/categories")
         .then((response) => {
           this.$data.categories = response.data;
           this.$data.currentCategory = this.$data.categories[0];
