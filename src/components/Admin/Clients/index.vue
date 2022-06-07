@@ -64,6 +64,7 @@ export default {
     axios.get(url_api + 'api/clients', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
+      console.log(response.data)
       this.$data.clients = response.data;
     });
   },

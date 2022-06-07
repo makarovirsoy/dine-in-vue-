@@ -166,10 +166,10 @@ export default {
   methods: {
     submit: function () {
       console.log(this.$data.form);
-      axios.put(url_api + 'api/dishs/'+this.$route.params.id, this.$data.form, {
+      axios.put(url_api + 'api/dishes', this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
       }).then(response => {
-        console.log(response.data);
+        console.log(this.$data.form);
       });
     }
 

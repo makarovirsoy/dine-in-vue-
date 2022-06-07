@@ -76,6 +76,7 @@ export default {
     axios.get(url_api + 'api/orders', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
+      console.log(response.data);
       this.$data.orders = response.data;
     });
   },

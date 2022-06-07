@@ -79,11 +79,10 @@
             :key="index"
             @click="openDishModal(dish)"
         >
-
           <img
               class="rounded-t-lg"
-              src="{{dish.base64Image}}"
-              alt="dish"
+              :src="dish.base64Image"
+              alt="dish "
           />
           <div class="p-5">
             <div class="flex justify-between">
@@ -149,42 +148,30 @@
                 transition-all
                 sm:my-8 sm:max-w-lg sm:w-full
                 border border-orange-500
+
               "
             >
+
               <div
+                  @click="this.$data.showDish = false"
                   class="
-                  h-96
-                  bg-amber-400
-                  flex flex-col
-                  justify-between
-                  bg-cover bg-no-repeat
-                  items-end
-                "
-                  style="
-                  background-image: url('https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg');
-                "
-              >
-                <div
-                    @click="this.$data.showDish = false"
-                    class="
                     mx-auto
                     flex-shrink-0 flex
                     items-center
                     justify-center
-                    h-8
-                    w-8
                     rounded-full
                     bg-orange-100
                     h-10
                     w-10
-                    mt-2
-                    mr-4
+                    top-4
+                    right-4
                     hover:cursor-pointer
+                    absolute
                   "
-                >
-                  <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
-                </div>
+              >
+                <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
               </div>
+                <img :src="currentDish.base64Image">
 
               <div class="m-5">
                 <div class="flex justify-between">
@@ -338,10 +325,13 @@
                       :key="index"
                   >
                     <div class="flex">
+                      <div>
                       <img
-                          src="https://www.dashef.com/wp-content/uploads/2016/11/Depositphotos_71652087_original-min.jpg"
+                          :src="orderedProduct.product.base64Image"
                           class="w-20 h-20 rounded-lg"
+                          alt="image"
                       />
+                      </div>
                       <div class="flex flex-col ml-2">
                         <h4 class="mt-4 text-xl font-bold">
                           {{ orderedProduct.product.name }}
@@ -755,8 +745,7 @@ export default {
         cart: this.$data.checkoutForm.cart,
       };
       console.log(request);
-      axios
-          .post(url_api + "api/orders", request, )
+      axios.post(url_api + "api/orders", request,)
           .then((response) => {
             this.$data.categories = response.data;
             this.$data.currentCategory = this.$data.categories[0];
