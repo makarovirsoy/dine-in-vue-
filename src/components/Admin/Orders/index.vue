@@ -22,25 +22,37 @@
               <th scope="col" class="px-6 py-3">
                 Zahlung
               </th>
+              <th scope="col" class="px-6 py-3">
+                Datum
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Kunde
+              </th>
             </tr>
             </thead>
 
             <tbody>
-            <tr class="bg-white border-b text-purple-400">
-              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap" v-for="order in this.$data.orders">
-                 order.id
+            <tr class="bg-white border-b text-purple-400" v-for="order in this.$data.orders">
+              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap" >
+                {{ order.id }}
               </th>
               <td class="px-6 py-4">
-                lifetung
+                {{ order.id }}
               </td>
               <td class="px-6 py-4">
-                order.status
+                {{ order.table }}
               </td>
               <td class="px-6 py-4">
-                 order.sum
+                {{ order.sum }}
               </td>
               <td class="px-6 py-4">
-                 order.payment
+                {{ order.payment }}
+              </td>
+              <td class="px-6 py-4">
+                {{ order.date }}
+              </td>
+              <td class="px-6 py-4">
+                {{ order.client.email }}
               </td>
             </tr>
             </tbody>
@@ -76,7 +88,7 @@ export default {
     axios.get(url_api + 'api/orders', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
-      console.log(response.data);
+      console.log(JSON.parse(response.data[0].cart));
       this.$data.orders = response.data;
     });
   },

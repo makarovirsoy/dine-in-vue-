@@ -307,7 +307,7 @@
 
                 <hr class="my-4"/>
 
-                <div v-if="this.$data.checkoutForm.cart.length === 0">
+                <div v-if="this.$data.cart.length === 0">
                   Fügen Sie Ihre lieblings Speise.
                 </div>
 
@@ -321,7 +321,7 @@
                       items-center
                       my-2
                     "
-                      v-for="(orderedProduct, index) in this.$data.checkoutForm.cart"
+                      v-for="(orderedProduct, index) in this.$data.cart"
                       :key="index"
                   >
                     <div class="flex">
@@ -648,12 +648,12 @@ export default {
       currentDish: null,
       toOrderDishCount: 1,
       cartProducts: 0,
+      cart: [],
       checkoutForm: {
         table: "1",
         payment: "paypal",
         comment: "bitte pizza schneiden",
         sum: 0,
-        cart: [],
         client: {
           name: "Youssef Ben Abdallah",
           email: "youssef@gmail.com",
@@ -700,36 +700,36 @@ export default {
       };
 
       if (
-          this.$data.checkoutForm.cart.some((item) => item.product === this.$data.currentDish)
+          this.$data.cart.some((item) => item.product === this.$data.currentDish)
       ) {
-        let index = this.$data.checkoutForm.cart.findIndex(
+        let index = this.$data.cart.findIndex(
             (item) => item.product.id === this.$data.currentDish.id
         );
-        this.$data.checkoutForm.cart[index].count++;
+        this.$data.cart[index].count++;
         this.$data.showDish = false;
         return;
       }
-      this.$data.checkoutForm.cart = [...this.$data.checkoutForm.cart, orderedProduct];
+      this.$data.cart = [...this.$data.cart, orderedProduct];
       this.$data.showDish = false;
     },
 
     orderedProductCountDecrement(product, index) {
       product.count--;
       if (product.count === 0) {
-        this.$data.checkoutForm.cart.splice(index, 1);
+        this.$data.cart.splice(index, 1);
       }
     },
 
     calculateCartProducts() {
       this.$data.cartProducts = 0;
-      this.$data.checkoutForm.cart.forEach((cart) => {
+      this.$data.cart.forEach((cart) => {
         this.$data.cartProducts = this.$data.cartProducts + cart.count;
       });
     },
 
     calculateSum() {
       this.$data.checkoutForm.sum = 0;
-      this.$data.checkoutForm.cart.forEach((cart) => {
+      this.$data.cart.forEach((cart) => {
         if (cart.product) {
           this.$data.checkoutForm.sum =
               this.$data.checkoutForm.sum + cart.product.price * cart.count;
@@ -739,8 +739,8 @@ export default {
 
     postOrder() {
       const request = {
-        checkout: this.$data.checkoutForm,
-        cart: this.$data.checkoutForm.cart,
+        order: this.$data.checkoutForm,
+        cart: this.$data.cart,
       };
       console.log(request);
       axios.post(url_api + "api/orders", request,)
@@ -752,9 +752,9 @@ export default {
   },
 
   watch: {
-    checkoutForm: {
+    cart: {
       handler(n, o) {
-        console.log(this.$data.checkoutForm.cart);
+        console.log(this.$data.cart);
         this.calculateCartProducts();
         this.calculateSum();
       },
