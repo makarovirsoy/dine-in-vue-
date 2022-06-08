@@ -37,7 +37,7 @@
           active:bg-fuchsia-400 active:shadow-lg
           transition
           duration-150
-          ease-in-out" @click.prevent="close">Abbrechen
+          ease-in-out" @click.prevent="close">Zurück
                 </button>
                 <button type="submit" class="px-6
       py-2.5

@@ -40,7 +40,7 @@
           active:bg-fuchsia-400 active:shadow-lg
           transition
           duration-150
-          ease-in-out" @click.prevent="close">Abbrechen
+          ease-in-out" @click.prevent="close">Zurück
                 </button>
                 <button type="submit" class="px-6
       py-2.5
@@ -106,10 +106,10 @@ export default {
   },
 
   mounted() {
-    axios.get(url_api + 'api/categories/' + this.$route.params.id, {
+    axios.get(url_api + 'api/simplecategory/' + this.$route.params.id, {
       headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
     }).then(response => {
-      console.log(response);
+      console.log(response.data);
       this.$data.form = response.data
     });
   },

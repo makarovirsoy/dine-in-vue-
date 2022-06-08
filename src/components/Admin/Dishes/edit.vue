@@ -53,7 +53,8 @@
 
                     <input
                         class="w-1/2 text-sm text-emerald-800 bg-emerald-50 rounded-lg border border-emerald-300 cursor-pointer dark:text-gray-400 focus:outline-none focus:border-transparent"
-                        aria-describedby="cover" id="photo" type="file" >
+                        aria-describedby="cover" id="photo" type="file" @change="handleImage">
+                    <img :src="form.base64Image">
                   </div>
 
                   <div class="mb-6">
@@ -134,6 +135,7 @@ import axios from "axios";
 import VueCookies from "vue-cookies";
 import Layout from "../layout.vue";
 import { url_api } from '../../../const/api';
+import router from "../../../router";
 
 export default {
   name: 'create',
@@ -169,12 +171,21 @@ export default {
       axios.put(url_api + 'api/dishes', this.$data.form, {
         headers: {Authorization: `Bearer ${VueCookies.get('token')}`,}
       }).then(response => {
-        console.log(this.$data.form);
+        router.push('/dishes')
       });
-    }
+    },
 
+    handleImage(e) {
+      const selectedImage = e.target.files[0];
+      const reader = new FileReader();
 
+      reader.onloadend = (e) => {
+        this.$data.form.base64Image = e.target.result;
+      };
+      reader.readAsDataURL(selectedImage);
+    },
   },
+
 
   mounted() {
     axios.get(url_api + 'api/categories', {

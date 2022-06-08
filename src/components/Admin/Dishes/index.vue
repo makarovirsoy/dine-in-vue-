@@ -117,7 +117,6 @@ export default {
       axios.delete(url_api +  "api/dishes/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
       }).then(response => {
-        console.log(response.data());
         window.location.reload();
       })
     }

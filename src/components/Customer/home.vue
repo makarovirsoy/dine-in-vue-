@@ -171,7 +171,7 @@
               >
                 <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
               </div>
-                <img :src="currentDish.base64Image">
+              <img :src="currentDish.base64Image">
 
               <div class="m-5">
                 <div class="flex justify-between">
@@ -326,11 +326,11 @@
                   >
                     <div class="flex">
                       <div>
-                      <img
-                          :src="orderedProduct.product.base64Image"
-                          class="w-20 h-20 rounded-lg"
-                          alt="image"
-                      />
+                        <img
+                            :src="orderedProduct.product.base64Image"
+                            class="w-20 h-20 rounded-lg"
+                            alt="image"
+                        />
                       </div>
                       <div class="flex flex-col ml-2">
                         <h4 class="mt-4 text-xl font-bold">
@@ -659,8 +659,6 @@ export default {
           email: "youssef@gmail.com",
           phone: "+49FXXXZZZFFF",
         },
-
-
       },
     };
   },
