@@ -748,8 +748,9 @@ export default {
         cart: this.$data.cart,
       };
       axios.post(url_api + "api/orders", request).then((response) => {
+          this.$data.cart=[];
             this.closeCheckoutModal();
-            location.reload();
+            alert('Bestellung Unterwegs');
       });
 
 
