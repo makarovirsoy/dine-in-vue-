@@ -392,7 +392,7 @@
   </TransitionRoot>
 
   <TransitionRoot as="template" :show="this.$data.checkout">
-    <Dialog as="div" class="relative z-10" @close="this.$data.checkout = false">
+    <Dialog as="div" class="relative z-10" @close="this.closeCheckoutModal()">
       <TransitionChild
           as="template"
           enter="ease-out duration-300"
@@ -626,6 +626,7 @@ import {
 import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
 import {url_api} from "../../const/api";
+import router from "../../router";
 
 export default {
   name: "home",
@@ -667,7 +668,6 @@ export default {
       this.$data.showDish = true;
       this.$data.currentDish = dish;
       this.$data.toOrderDishCount = 1;
-      console.log(dish);
     },
 
     openCartModal() {
@@ -677,6 +677,10 @@ export default {
     openCheckoutModal() {
       this.$data.ShowCart = false;
       this.$data.checkout = true;
+    },
+
+    closeCheckoutModal() {
+      this.$data.checkout = false;
     },
 
     updateCurrentCategory(category) {
@@ -738,23 +742,23 @@ export default {
     },
 
     postOrder() {
+      this.closeCheckoutModal();
       const request = {
         order: this.$data.checkoutForm,
         cart: this.$data.cart,
       };
-      console.log(request);
-      axios.post(url_api + "api/orders", request,)
-          .then((response) => {
-            this.$data.categories = response.data;
-            this.$data.currentCategory = this.$data.categories[0];
-          });
+      axios.post(url_api + "api/orders", request).then((response) => {
+            this.closeCheckoutModal();
+            location.reload();
+      });
+
+
     },
   },
 
   watch: {
     cart: {
       handler(n, o) {
-        console.log(this.$data.cart);
         this.calculateCartProducts();
         this.calculateSum();
       },
@@ -763,8 +767,7 @@ export default {
   },
 
   mounted() {
-    axios
-        .get(url_api + "api/categories")
+    axios.get(url_api + "api/categories")
         .then((response) => {
           this.$data.categories = response.data;
           this.$data.currentCategory = this.$data.categories[0];
