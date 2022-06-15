@@ -2,10 +2,11 @@
   <div class="flex flex-col h-screen">
     <div
         class="
-        h-96
+        md:w-screen
+        h-64
+        lg:h-96
         bg-amber-400
-        py-10
-        px-60
+        py-8
         flex flex-col
         justify-between
         bg-cover bg-no-repeat
@@ -20,29 +21,46 @@
             p-2
             rounded-2xl
             hover:cursor-pointer
+            hidden
+            lg:flex
           "
             @click="openCartModal()"
         >
           <div class="rounded-xl bg-white p-2">
             {{ this.$data.cartProducts }}
           </div>
+
           <div class="ml-2 py-2">Bestellung ansehen</div>
+
           <div class="ml-2 py-2">{{ this.$data.checkoutForm.sum }} €</div>
         </div>
       </div>
-
-      <div class="inline text-5xl text-white">Wilkommen</div>
+      <div class="flex justify-between">
+      <div class="text-xl inline lg:text-5xl text-white">Wilkommen</div>
+        <div class="font-sans block mt-4 inline-block mt-0 ml-6 align-middle text-orange-600 hover:text-gray-700 lg:hidden mr-4" @click="openCartModal()">
+          <div class="relative flex">
+            <svg class="flex-1 w-8 h-8 fill-current" viewbox="0 0 24 24">
+              <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
+            </svg>
+            <span class="absolute right-0 top-0 rounded-full bg-white w-4 h-4 top right p-0 m-0 text-black font-mono text-sm  leading-tight text-center">{{ this.$data.cartProducts }}
+    </span>
+            </div>
+          </div>
+      </div>
     </div>
 
-    <div class="p-4 justify-center">
+    <div class="px-4 justify-center shadow shadow-2xl">
       <div
           class="
           flex flex-nowrap
           my-4
           p-4
-          w-1/3
+          w-full
+          md:w-1/2
           mx-auto
           overflow-scroll overflow-y-auto
+          scrollbar-hide
+
         "
       >
         <div
@@ -63,7 +81,7 @@
       </div>
     </div>
 
-    <div class="mx-20 md:mx-80 mx-auto" v-if="currentCategory">
+    <div class="mt-4 mx-4 md:mx-20 md:mt-10 md:mx-80 mx-auto" v-if="currentCategory">
       <div class="flex flex-row flex-wrap justify-center">
         <div
             class="
@@ -72,7 +90,9 @@
             border border-orange-200
             shadow-md
             m-2
-            w-1/4
+            lg:w-1/4
+            md:w-3/4
+            w-full
             hover:cursor-pointer
           "
             v-for="dish in currentCategory.dishes"
@@ -86,11 +106,11 @@
           />
           <div class="p-5">
             <div class="flex justify-between">
-              <h5 class="text-2xl font-bold">{{ dish.name }}</h5>
+              <h5 class="text-lg lg:text-2xl font-bold">{{ dish.name }}</h5>
               <p class="text-xl text-orange-500">{{ dish.price }}</p>
             </div>
             <p class="mt-2 font-normal text-gray-900 dark:text-gray-400">
-              {{ dish.name }}
+              {{ dish.description }}
             </p>
           </div>
         </div>

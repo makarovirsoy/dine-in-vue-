@@ -12,6 +12,9 @@ export default defineConfig({
     },
     devServer: {
       proxy: 'https://ewd-backend-main.herokuapp.com/api/',
-    }
+    },
+    server:{
+      host: true
+    },
   }
 })

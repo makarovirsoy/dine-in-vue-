@@ -12,6 +12,7 @@
     "axios": "^0.27.2",
     "cors": "^2.8.5",
     "pinia": "^2.0.13",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "vue": "^3.2.33",
     "vue-cookies": "^1.8.1",
     "vue-loader-v16": "^16.0.0-beta.5.4",
