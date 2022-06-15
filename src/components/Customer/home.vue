@@ -241,8 +241,8 @@
                     class="flex bg-orange-500 rounded-xl hover:cursor-pointer"
                     @click="addToCart()"
                 >
-                  <div class="py-2 px-4 text-xl">Bestellung aktualisieren</div>
-                  <div class="py-2 px-4 text-xl">
+                  <div class="text-lg py-2 px-4 md:text-xl">Bestellen</div>
+                  <div class="text-lg py-2 px-4 md:text-xl">
                     {{ currentDish.price * toOrderDishCount }} €
                   </div>
                 </div>
