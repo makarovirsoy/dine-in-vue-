@@ -81,8 +81,8 @@
       </div>
     </div>
 
-    <div class="mt-4 mx-4 md:mx-20 md:mt-10 md:mx-80 mx-auto" v-if="currentCategory">
-      <div class="flex flex-row flex-wrap justify-center">
+    <div class="mt-4 mx-4 md:mt-10 md:mx-80 mx-auto" v-if="currentCategory">
+      <div class="flex flex-row flex-wrap lg:flex-nowrap justify-center">
         <div
             class="
             bg-white
@@ -90,8 +90,8 @@
             border border-orange-200
             shadow-md
             m-2
-            lg:w-1/4
-            md:w-3/4
+            lg:w-3/4
+            xl:w-1/4
             w-full
             hover:cursor-pointer
           "
@@ -166,7 +166,7 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:my-8 sm:max-w-lg sm:w-full
+                sm:w-full md:w-3/4 xl:w-1/4
                 border border-orange-500
 
               "
@@ -301,7 +301,7 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:my-8 sm:max-w-lg sm:w-full
+                sm:w-full md:w-3/4 xl:w-1/4
                 border border-orange-500
               "
             >
@@ -459,7 +459,7 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:my-8 sm:max-w-lg sm:w-full
+                sm:w-full md:w-3/4 xl:w-1/4
                 border border-orange-500
               "
             >
