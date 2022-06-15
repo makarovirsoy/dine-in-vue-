@@ -646,7 +646,6 @@ import {
 import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
 import {url_api} from "../../const/api";
-import router from "../../router";
 
 export default {
   name: "home",
@@ -768,12 +767,16 @@ export default {
         cart: this.$data.cart,
       };
       axios.post(url_api + "api/orders", request).then((response) => {
-          this.$data.cart=[];
-            this.closeCheckoutModal();
-            alert('Bestellung Unterwegs');
+        this.$data.cart = [];
+        this.closeCheckoutModal();
+        this.$router.push({
+          name: 'payment',
+          params: {
+            productsCount: this.$data.cartProducts
+          }
+        })
+        ;
       });
-
-
     },
   },
 

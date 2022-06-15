@@ -60,6 +60,12 @@ const router = createRouter({
             name: 'clients',
             component: () => import('../components/Admin/Clients/index.vue')
         },
+        {
+            path: '/payment',
+            name: 'payment',
+            component: () => import('../components/Customer/stripe.vue'),
+            props: true,
+        },
 
     ]
 })
