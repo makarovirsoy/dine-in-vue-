@@ -7,6 +7,7 @@
         lg:h-96
         bg-amber-400
         py-8
+        md:px-40
         flex flex-col
         justify-between
         bg-cover bg-no-repeat
