@@ -36,8 +36,8 @@ export default {
           quantity: Number(this.$props.productsCount),
         },
       ],
-      successURL: 'http://localhost:3000/',
-      cancelURL: 'http://localhost:3000/',
+      successURL: 'https://dine-in-front.netlify.app/',
+      cancelURL: 'https://dine-in-front.netlify.app/',
     };
   },
   methods: {},

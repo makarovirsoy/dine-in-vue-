@@ -573,7 +573,7 @@
                         for="radio1"
                         class="ml-2 flex items-center cursor-pointer"
                     >
-                      Paypal</label
+                      Stripe</label
                     >
                   </div>
 
