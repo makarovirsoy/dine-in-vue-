@@ -83,7 +83,7 @@
     </div>
 
     <div class="mt-4 mx-4 md:mt-10 md:mx-80 mx-auto" v-if="currentCategory">
-      <div class="flex flex-row flex-wrap lg:flex-nowrap justify-center">
+      <div class="flex flex-row flex-wrap justify-center">
         <div
             class="
             bg-white
@@ -101,7 +101,7 @@
             @click="openDishModal(dish)"
         >
           <img
-              class="rounded-t-lg"
+              class="rounded-t-lg object-cover h-64 w-full"
               :src="dish.base64Image"
               alt="dish "
           />
