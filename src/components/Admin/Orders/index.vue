@@ -92,7 +92,7 @@ export default {
 
   methods: {
     downloadPdf(id) {
-      axios.get(url_api + "api/orders/exporttopdf/{{id}}" + id, {
+      axios.get(url_api + "api/orders/exporttopdf/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')},
         responseType:"blob",
       }).then(response => {
