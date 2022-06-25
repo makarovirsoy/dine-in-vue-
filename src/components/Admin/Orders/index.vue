@@ -28,12 +28,15 @@
               <th scope="col" class="px-6 py-3">
                 Kunde
               </th>
+              <th scope="col" class="px-6 py-3">
+                Rechnung
+              </th>
             </tr>
             </thead>
 
             <tbody>
             <tr class="bg-white border-b text-purple-400" v-for="order in this.$data.orders">
-              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap" >
+              <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap">
                 {{ order.id }}
               </th>
               <td class="px-6 py-4">
@@ -54,12 +57,20 @@
               <td class="px-6 py-4">
                 {{ order.client.email }}
               </td>
+              <td class="px-6 py-4">
+                <button @click="downloadPdf(order.id)">
+                  pdf
+                </button>
+              </td>
             </tr>
             </tbody>
           </table>
         </div>
       </div>
     </slot>
+    <button @click="downloadPdf(1)">
+      pdf
+    </button>
   </Layout>
 </template>
 
@@ -82,7 +93,22 @@ export default {
 
   computed: {},
 
-  methods: {},
+  methods: {
+    downloadPdf(id) {
+      axios.get(url_api + "api/orders/exporttopdf/{{id}}" + id, {
+        headers: {Authorization: 'Bearer ' + this.$cookies.get('token')},
+        responseType:"blob",
+      }).then(response => {
+        console.log(response.data);
+        const blob = new Blob([response.data], { type: "application/pdf" });
+        const link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = "order.pdf";
+        window.open(link);
+        //link.click();
+      });
+    },
+  },
 
   mounted() {
     axios.get(url_api + 'api/orders', {
