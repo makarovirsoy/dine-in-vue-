@@ -192,7 +192,8 @@
               >
                 <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
               </div>
-              <img :src="currentDish.base64Image">
+              <img class="object-cover h-64 w-full"
+                  :src="currentDish.base64Image">
 
               <div class="m-5">
                 <div class="flex justify-between">
