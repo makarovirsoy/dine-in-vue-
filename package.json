@@ -16,6 +16,7 @@
     "tailwind-scrollbar-hide": "^1.1.7",
     "vue": "^3.2.33",
     "vue-cookies": "^1.8.1",
+    "vue-cookies-reactive": "^2.1.1",
     "vue-loader-v16": "^16.0.0-beta.5.4",
     "vue-router": "^4.0.14"
   },

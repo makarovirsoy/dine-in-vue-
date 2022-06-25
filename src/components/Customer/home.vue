@@ -648,6 +648,7 @@ import {
 import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
 import {url_api} from "../../const/api";
+import VueCookies from 'vue-cookies'
 
 export default {
   name: "home",
@@ -685,6 +686,11 @@ export default {
     };
   },
   methods: {
+
+    updateCartCookie(){
+      this.$cookies.set('cart', JSON.stringify(this.cart));
+    },
+
     openDishModal(dish) {
       this.$data.showDish = true;
       this.$data.currentDish = dish;
@@ -736,6 +742,8 @@ export default {
       }
       this.$data.cart = [...this.$data.cart, orderedProduct];
       this.$data.showDish = false;
+
+      this.updateCartCookie();
     },
 
     orderedProductCountDecrement(product, index) {
@@ -780,6 +788,7 @@ export default {
         ;
       });
     },
+
   },
 
   watch: {
@@ -787,6 +796,7 @@ export default {
       handler(n, o) {
         this.calculateCartProducts();
         this.calculateSum();
+        this.updateCartCookie();
       },
       deep: true,
     },
@@ -798,6 +808,12 @@ export default {
           this.$data.categories = response.data;
           this.$data.currentCategory = this.$data.categories[0];
         });
+
+    if ((this.$cookies.isKey('cart')) === false)
+    {
+      this.$cookies.set('cart','');
+    };
+
   },
 };
 </script>
