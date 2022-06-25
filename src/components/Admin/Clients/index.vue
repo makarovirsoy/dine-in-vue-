@@ -32,6 +32,7 @@
             </tr>
             </tbody>
           </table>
+          <Loading :loading="this.loading"></Loading>
         </div>
       </div>
     </slot>
@@ -42,17 +43,20 @@
 import Layout from "../layout.vue";
 import axios from "axios";
 import {url_api} from "../../../const/api";
+import Loading from "../Loading.vue";
+
 
 export default {
   name: 'index',
 
-  components: {Layout},
+  components: {Loading, Layout},
 
   props: {},
 
   data() {
     return {
       clients: null,
+      loading :true,
     };
   },
 
@@ -64,8 +68,8 @@ export default {
     axios.get(url_api + 'api/clients', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
-      console.log(response.data)
       this.$data.clients = response.data;
+      this.loading = false;
     });
   },
 };

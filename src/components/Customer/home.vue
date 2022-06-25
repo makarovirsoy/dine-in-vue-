@@ -108,7 +108,7 @@
           <div class="p-5">
             <div class="flex justify-between">
               <h5 class="text-lg lg:text-2xl font-bold">{{ dish.name }}</h5>
-              <p class="text-xl text-orange-500">{{ dish.price }}</p>
+              <p class="text-xl text-orange-500">{{ dish.price }} €</p>
             </div>
             <p class="mt-2 font-normal text-gray-900 dark:text-gray-400">
               {{ dish.description }}
@@ -201,7 +201,7 @@
                     {{ this.$data.currentDish.name }}
                   </h5>
                   <p class="text-xl text-orange-500">
-                    {{ this.$data.currentDish.price }}
+                    {{ this.$data.currentDish.price }} €
                   </p>
                 </div>
                 <p class="mt-2 font-normal text-gray-500">

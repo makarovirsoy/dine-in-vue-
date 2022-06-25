@@ -66,21 +66,23 @@
                 </router-link>
               </td>
               <td class="px-6 py-4 text-left">
-                  <button type="submit" class="font-medium text-red-600  hover:underline" @click="deleteCategory(dish.id)">
+                <button type="submit" class="font-medium text-red-600  hover:underline"
+                        @click="deleteCategory(dish.id)">
 
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-                         viewBox="0 0 24 24"
-                         stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
-                    </svg>
-                  </button>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                       viewBox="0 0 24 24"
+                       stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
 
               </td>
             </tr>
 
             </tbody>
           </table>
+          <Loading :loading="this.$data.loading" ></Loading>
         </div>
       </div>
     </slot>
@@ -92,11 +94,12 @@ import Layout from "../layout.vue";
 import Create from "./create.vue";
 import axios from "axios";
 import {url_api} from "../../../const/api"
+import Loading from "../Loading.vue";
 
 export default {
   name: 'index',
 
-  components: {Layout, Create},
+  components: {Layout, Create, Loading},
 
   props: {},
 
@@ -104,6 +107,7 @@ export default {
     return {
       createModalShowing: false,
       dishes: null,
+      loading: true,
     };
   },
 
@@ -114,7 +118,7 @@ export default {
       if (!confirm('Sind Sie sicher die Speise zu löschen?')) {
         return
       }
-      axios.delete(url_api +  "api/dishes/" + id, {
+      axios.delete(url_api + "api/dishes/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
       }).then(response => {
         window.location.reload();
@@ -127,7 +131,7 @@ export default {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
       this.$data.dishes = response.data;
-      console.log(this.$data.dishes[0]);
+      this.loading = false;
     });
   },
 };

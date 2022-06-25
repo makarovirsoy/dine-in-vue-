@@ -61,9 +61,9 @@
 
             </tbody>
           </table>
+          <Loading :loading="this.loading"></Loading>
         </div>
       </div>
-
     </slot>
   </Layout>
 </template>
@@ -73,12 +73,13 @@ import Layout from "../layout.vue";
 import Create from "./create.vue";
 import axios from "axios";
 import {url_api} from "../../../const/api"
+import Loading from "../Loading.vue";
 
 
 export default {
   name: 'index',
 
-  components: {Create, Layout},
+  components: {Loading, Create, Layout},
 
   props: {},
 
@@ -86,6 +87,7 @@ export default {
     return {
       createModalShowing: false,
       categories: null,
+      loading: true,
     };
   },
 
@@ -109,6 +111,7 @@ export default {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
       this.$data.categories = response.data;
+      this.loading=false;
     });
   },
 };

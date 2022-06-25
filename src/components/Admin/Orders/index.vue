@@ -33,7 +33,6 @@
               </th>
             </tr>
             </thead>
-
             <tbody>
             <tr class="bg-white border-b text-purple-400" v-for="order in this.$data.orders">
               <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap">
@@ -65,6 +64,7 @@
             </tr>
             </tbody>
           </table>
+          <Loading :loading="this.$data.loading"></Loading>
         </div>
       </div>
     </slot>
@@ -75,16 +75,18 @@
 import Layout from '../layout.vue'
 import axios from "axios";
 import {url_api} from "../../../const/api";
+import Loading from "../Loading.vue";
 
 
 export default {
   name: 'index',
-  components: {Layout},
+  components: {Loading, Layout},
   props: {},
 
   data() {
     return {
       orders: null,
+      loading:true,
     };
   },
 
@@ -96,13 +98,11 @@ export default {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')},
         responseType:"blob",
       }).then(response => {
-        console.log(response.data);
         const blob = new Blob([response.data], { type: "application/pdf" });
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
         link.download = "order.pdf";
         window.open(link);
-        //link.click();
       });
     },
   },
@@ -111,8 +111,8 @@ export default {
     axios.get(url_api + 'api/orders', {
       headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
     }).then(response => {
-      console.log(JSON.parse(response.data[0].cart));
       this.$data.orders = response.data;
+      this.loading = false;
     });
   },
 
