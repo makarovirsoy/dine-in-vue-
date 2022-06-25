@@ -68,9 +68,6 @@
         </div>
       </div>
     </slot>
-    <button @click="downloadPdf(1)">
-      pdf
-    </button>
   </Layout>
 </template>
 
