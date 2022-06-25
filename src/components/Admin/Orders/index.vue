@@ -51,7 +51,7 @@
                 {{ order.payment }}
               </td>
               <td class="px-6 py-4">
-                {{ order.date }}
+               {{ new Date(order.date).toLocaleString("de-DE", dateTimeFormat) }}
               </td>
               <td class="px-6 py-4">
                 {{ order.client.email }}
@@ -87,6 +87,8 @@ export default {
     return {
       orders: null,
       loading:true,
+      dateTimeFormat: { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' },
+
     };
   },
 
