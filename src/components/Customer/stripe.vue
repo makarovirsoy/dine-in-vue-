@@ -36,7 +36,7 @@ export default {
           quantity: Number(this.$props.productsCount),
         },
       ],
-      successURL: 'https://dine-in-front.netlify.app/',
+      successURL: 'https://dine-in-front.netlify.app/order',
       cancelURL: 'https://dine-in-front.netlify.app/',
     };
   },

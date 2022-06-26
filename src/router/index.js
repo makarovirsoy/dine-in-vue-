@@ -25,6 +25,12 @@ const router = createRouter({
             component: () => import('../components/Admin/Orders/index.vue')
         },
         {
+            path: '/orderStatus/:id',
+            name: 'orderStatus',
+            component: () => import('../components/Admin/Orders/orderStatus.vue'),
+            props: true,
+        },
+        {
             path: '/categories/create',
             name: 'create-categories',
             component: () => import('../components/Admin/Categories/create.vue')
@@ -64,6 +70,12 @@ const router = createRouter({
             path: '/payment',
             name: 'payment',
             component: () => import('../components/Customer/stripe.vue'),
+            props: true,
+        },
+        {
+            path: '/order',
+            name: 'order',
+            component: () => import('../components/Customer/order.vue'),
             props: true,
         },
 

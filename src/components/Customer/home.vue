@@ -37,16 +37,52 @@
         </div>
       </div>
       <div class="flex justify-between">
-      <div class="text-xl inline lg:text-5xl text-white">Wilkommen</div>
-        <div class="font-sans block mt-4 inline-block mt-0 ml-6 align-middle text-orange-600 hover:text-gray-700 lg:hidden mr-4" @click="openCartModal()">
+        <div class="text-xl inline lg:text-5xl text-white">Wilkommen</div>
+        <div
+            class="
+            font-sans
+            block
+            mt-4
+            inline-block
+            mt-0
+            ml-6
+            align-middle
+            text-orange-600
+            hover:text-gray-700
+            lg:hidden
+            mr-4
+          "
+            @click="openCartModal()"
+        >
           <div class="relative flex">
             <svg class="flex-1 w-8 h-8 fill-current" viewbox="0 0 24 24">
-              <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"/>
+              <path
+                  d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z"
+              />
             </svg>
-            <span class="absolute right-0 top-0 rounded-full bg-white w-4 h-4 top right p-0 m-0 text-black font-mono text-sm  leading-tight text-center">{{ this.$data.cartProducts }}
-    </span>
-            </div>
+            <span
+                class="
+                absolute
+                right-0
+                top-0
+                rounded-full
+                bg-white
+                w-4
+                h-4
+                top
+                right
+                p-0
+                m-0
+                text-black
+                font-mono
+                text-sm
+                leading-tight
+                text-center
+              "
+            >{{ this.$data.cartProducts }}
+            </span>
           </div>
+        </div>
       </div>
     </div>
 
@@ -61,7 +97,6 @@
           mx-auto
           overflow-scroll overflow-y-auto
           scrollbar-hide
-
         "
       >
         <div
@@ -167,33 +202,35 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:w-full md:w-3/4 xl:w-1/4
+                sm:w-full
+                md:w-3/4
+                xl:w-1/4
                 border border-orange-500
-
               "
             >
-
               <div
                   @click="this.$data.showDish = false"
                   class="
-                    mx-auto
-                    flex-shrink-0 flex
-                    items-center
-                    justify-center
-                    rounded-full
-                    bg-orange-100
-                    h-10
-                    w-10
-                    top-4
-                    right-4
-                    hover:cursor-pointer
-                    absolute
-                  "
+                  mx-auto
+                  flex-shrink-0 flex
+                  items-center
+                  justify-center
+                  rounded-full
+                  bg-orange-100
+                  h-10
+                  w-10
+                  top-4
+                  right-4
+                  hover:cursor-pointer
+                  absolute
+                "
               >
                 <XIcon class="h-6 w-6 text-orange-600" aria-hidden="true"/>
               </div>
-              <img class="object-cover h-64 w-full"
-                  :src="currentDish.base64Image">
+              <img
+                  class="object-cover h-64 w-full"
+                  :src="currentDish.base64Image"
+              />
 
               <div class="m-5">
                 <div class="flex justify-between">
@@ -303,7 +340,9 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:w-full md:w-3/4 xl:w-1/4
+                sm:w-full
+                md:w-3/4
+                xl:w-1/4
                 border border-orange-500
               "
             >
@@ -377,7 +416,7 @@
                       <div class="p-2 text-xl">{{ orderedProduct.count }}</div>
                       <div
                           class="p-2 hover:cursor-pointer text-xl"
-                          @click="orderedProduct.count++"
+                          @click="orderedProductCountIncrement(orderedProduct, index)"
                       >
                         +
                       </div>
@@ -461,7 +500,9 @@
                 shadow-xl
                 transform
                 transition-all
-                sm:w-full md:w-3/4 xl:w-1/4
+                sm:w-full
+                md:w-3/4
+                xl:w-1/4
                 border border-orange-500
               "
             >
@@ -648,6 +689,7 @@ import {
 import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
 import {url_api} from "../../const/api";
+import VueCookies from "vue-cookies";
 
 export default {
   name: "home",
@@ -685,6 +727,32 @@ export default {
     };
   },
   methods: {
+    getDishByIdFromCategories(id) {
+      for (let i = 0; i < this.categories.length; i++) {
+        let dishes = this.categories[i].dishes.filter((dish) => {
+          return dish.id == id;
+        });
+        if (dishes.length > 0) {
+          console.log("dishes: ", dishes);
+          return dishes;
+        }
+      }
+    },
+
+    updateCartCookie() {
+      // console.log(JSON.stringify(this.$data.currentDish.id));
+      let orderedDishesIds = [];
+      this.cart.map((dish) => {
+        let value = {
+          id: dish.product.id,
+          count: dish.count,
+        };
+        orderedDishesIds.push(value);
+      });
+      this.$cookies.set("cart", JSON.stringify(orderedDishesIds));
+      console.log("Cookies: ", JSON.parse(this.$cookies.get("cart")));
+    },
+
     openDishModal(dish) {
       this.$data.showDish = true;
       this.$data.currentDish = dish;
@@ -732,10 +800,15 @@ export default {
         );
         this.$data.cart[index].count++;
         this.$data.showDish = false;
+
+        this.$cookies.remove("cart");
+        this.updateCartCookie();
         return;
       }
       this.$data.cart = [...this.$data.cart, orderedProduct];
       this.$data.showDish = false;
+      this.$cookies.remove("cart");
+      this.updateCartCookie();
     },
 
     orderedProductCountDecrement(product, index) {
@@ -743,6 +816,14 @@ export default {
       if (product.count === 0) {
         this.$data.cart.splice(index, 1);
       }
+      this.updateCartCookie();
+
+    },
+
+    orderedProductCountIncrement(product, index) {
+      product.count++;
+
+      this.updateCartCookie();
     },
 
     calculateCartProducts() {
@@ -772,12 +853,13 @@ export default {
         this.$data.cart = [];
         this.closeCheckoutModal();
         this.$router.push({
-          name: 'payment',
+          name: "payment",
           params: {
-            productsCount: this.$data.cartProducts
-          }
-        })
-        ;
+            productsCount: this.$data.cartProducts,
+          },
+        });
+
+        this.$cookies.set("order_id", response.data);
       });
     },
   },
@@ -793,11 +875,24 @@ export default {
   },
 
   mounted() {
-    axios.get(url_api + "api/categories")
-        .then((response) => {
-          this.$data.categories = response.data;
-          this.$data.currentCategory = this.$data.categories[0];
+    axios.get(url_api + "api/categories").then((response) => {
+      this.$data.categories = response.data;
+      this.$data.currentCategory = this.$data.categories[0];
+
+      if (this.$cookies.isKey("cart")) {
+        let orderedDishesIds;
+        orderedDishesIds = JSON.parse(this.$cookies.get("cart"));
+        orderedDishesIds.map((value) => {
+          let dish = this.getDishByIdFromCategories(value.id);
+          let orderedProduct = {
+            product: dish[0],
+            count: value.count,
+          };
+          this.$data.cart = [...this.$data.cart, orderedProduct];
         });
+        console.log("this.$data.cart", this.$data.cart[0].product);
+      }
+    });
   },
 };
 </script>
