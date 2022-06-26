@@ -35,11 +35,13 @@
             </thead>
             <tbody>
             <tr class="bg-white border-b text-purple-400" v-for="order in this.$data.orders">
+              <router-link :to="'/orderStatus/'+order.id">
               <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap">
                 {{ order.id }}
               </th>
+              </router-link>
               <td class="px-6 py-4">
-                {{ order.id }}
+                {{ order.status }}
               </td>
               <td class="px-6 py-4">
                 {{ order.table }}
@@ -86,8 +88,15 @@ export default {
   data() {
     return {
       orders: null,
-      loading:true,
-      dateTimeFormat: { weekday: 'long', year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' },
+      loading: true,
+      dateTimeFormat: {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      },
 
     };
   },
@@ -98,9 +107,9 @@ export default {
     downloadPdf(id) {
       axios.get(url_api + "api/orders/exporttopdf/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')},
-        responseType:"blob",
+        responseType: "blob",
       }).then(response => {
-        const blob = new Blob([response.data], { type: "application/pdf" });
+        const blob = new Blob([response.data], {type: "application/pdf"});
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
         link.download = "order.pdf";
