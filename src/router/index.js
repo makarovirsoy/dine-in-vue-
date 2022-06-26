@@ -66,6 +66,12 @@ const router = createRouter({
             component: () => import('../components/Customer/stripe.vue'),
             props: true,
         },
+        {
+            path: '/order',
+            name: 'order',
+            component: () => import('../components/Customer/order.vue'),
+            props: true,
+        },
 
     ]
 })
