@@ -15,6 +15,7 @@
 <script>
 
 import {StripeCheckout} from '@vue-stripe/vue-stripe';
+import {url_front} from "../../const/api";
 
 export default {
   name: "stripe",
@@ -36,8 +37,8 @@ export default {
           quantity: Number(this.$props.productsCount),
         },
       ],
-      successURL: 'https://dine-in-front.netlify.app/order',
-      cancelURL: 'https://dine-in-front.netlify.app/',
+      successURL: url_front + 'order',
+      cancelURL: url_front + 'failure',
     };
   },
   methods: {},

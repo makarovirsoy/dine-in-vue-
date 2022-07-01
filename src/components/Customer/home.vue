@@ -37,7 +37,7 @@
         </div>
       </div>
       <div class="flex justify-between">
-        <div class="text-xl inline lg:text-5xl text-white">Wilkommen</div>
+        <div class="text-xl inline lg:text-5xl text-white">Willkommen</div>
         <div
             class="
             font-sans
@@ -111,6 +111,7 @@
             v-for="category in categories"
             :key="index"
             @click="updateCurrentCategory(category)"
+
         >
           {{ category.name }}
         </div>
@@ -670,7 +671,7 @@ import {
 } from "@headlessui/vue";
 import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
-import {url_api} from "../../const/api";
+import {url_api, url_front} from "../../const/api";
 import VueCookies from "vue-cookies";
 
 export default {
@@ -697,7 +698,7 @@ export default {
       cart: [],
       checkoutForm: {
         table: this.$route.params.id,
-        payment: null,
+        payment: 'paypal',
         comment: "kein Salz",
         sum: 0,
         client: {
@@ -844,6 +845,9 @@ export default {
       axios.post(url_api + "api/orders", request).then((response) => {
         this.$data.cart = [];
         this.closeCheckoutModal();
+        this.$cookies.set('order_id', response.data);
+        this.$cookies.remove('cart');
+        console.log("message", this.$cookies.get('order_id'));
         if (orderStatus === 'payed') {
           this.$router.push({
             name: "payment",
@@ -851,6 +855,9 @@ export default {
               productsCount: this.$data.cartProducts,
             },
           });
+        } else{
+          alert("bitte die bestellnummer an der Kasse zeigen: " + this.$cookies.get('order_id'));
+          this.$router.push('/order');
         }
       })
     },

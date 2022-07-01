@@ -79,6 +79,19 @@ const router = createRouter({
             props: true,
         },
 
+        {
+            path: '/success',
+            name: 'success',
+            component: () => import('../components/Customer/success.vue'),
+            props: true,
+        },
+        {
+            path: '/failure',
+            name: 'failure',
+            component: () => import('../components/Customer/failure.vue'),
+            props: true,
+        },
+
     ]
 })
 
