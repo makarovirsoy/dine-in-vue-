@@ -55,13 +55,14 @@ export default {
   },
 
   created() {
-    this.loadOrders();
+    this.loadOrder();
   },
 
 
   watch: {
     products: {
       handler(n, o) {
+        console.log(this.$data.products.length);
         if (this.$data.products.length === 0){
         this.updateStatus();
         }
@@ -79,18 +80,19 @@ export default {
     },
 
     updateStatus(){
-      axios.put(url_api + 'api/orders/updatestatus/' + 68, {
+      axios.put(url_api + 'api/orders/' + this.$data.order.id, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
         },
         data: { status: 'done'}
       }).then(response => {
-        console.log('order updated');
+        this.$data.products = JSON.parse(response.data.cart);
+        this.$data.order = response.data;
       });
     },
 
-    loadOrders(){
-      axios.get(url_api + 'api/orders', {
+    loadOrder(){
+      axios.get(url_api + 'api/orders/' + this.$route.params.id, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
           status : 'payed',
