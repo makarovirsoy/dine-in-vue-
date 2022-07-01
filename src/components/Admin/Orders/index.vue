@@ -40,11 +40,9 @@
             </thead>
             <tbody>
             <tr class="bg-white border-b text-purple-400" v-for="order in this.$data.orders">
-              <router-link :to="'/orderStatus/'+order.id">
               <th scope="row" class="px-6 py-4 font-medium text-purple-900 whitespace-nowrap">
                 {{ order.id }}
               </th>
-              </router-link>
               <td class="px-6 py-4">
                 {{ order.status }}
               </td>
