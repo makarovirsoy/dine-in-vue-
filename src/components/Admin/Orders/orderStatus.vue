@@ -5,12 +5,13 @@
         <div class="flex flex-col mb-10 ">
           <div v-for="(order,index) in this.$data.orders" class="p-2 border border-black rounded m-2">
             <div class="border border-black rounded p-2" v-if="index==0">
-              <div>Bestellungsnummer : {{ this.order.id }}</div>
-              <div>Tischnummer : {{ this.order.table }}</div>
-              <div>Kommentar : {{ this.order.comment }}</div>
+              <div>Bestellungsnummer : {{ order.id }}</div>
+              <div>Tischnummer : {{ order.table }}</div>
+              <div>Kommentar : {{ order.comment }}</div>
+              <div>status : {{ order.status }}</div>
               <div class="mb-4">kunde : {{ this.order.client.name }}</div>
             </div>
-            <div v-else>Bestellungsnummer : {{order.id}}</div>
+            <div v-else>Bestellungsnummer : {{order.id}} : {{ order.status }}</div>
           </div>
         </div>
         <div class="ml-20 py-4 flex-grow flex flex-col  items-center">
