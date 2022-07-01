@@ -80,7 +80,7 @@ export default {
     },
 
     updateStatus(){
-      axios.put(url_api + 'api/orders/' + this.$data.order.id, {
+      axios.put(url_api + 'api/orders/updatestatus/' + this.$data.order.id, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
         },
