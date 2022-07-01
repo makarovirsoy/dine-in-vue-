@@ -44,7 +44,10 @@
                 {{ order.id }}
               </th>
               <td class="px-6 py-4">
-                {{ order.status }}
+                <div v-if="order.status==='pending'" class="bg-red-300 rounded">{{ order.status }}</div>
+                <div v-if="order.status==='payed'" class="bg-blue-300 rounded">{{ order.status }}</div>
+                <div v-if="order.status==='done'" class="bg-green-300 rounded">{{ order.status }}</div>
+                <div  v-if="order.status==='pending'" class=" border border-purple-500 rounded bg-purple-200 hover:cursor-pointer" @click="verifyOrder(order)">Bestätigen</div>
               </td>
               <td class="px-6 py-4">
                 {{ order.table }}
@@ -117,6 +120,17 @@ export default {
         link.href = window.URL.createObjectURL(blob);
         link.download = "order.pdf";
         window.open(link);
+      });
+    },
+
+    verifyOrder(order){
+      axios.put(url_api + 'api/orders/updatestatus/' + order.id, {}, {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookies.get('token'),
+          status : 'payed',
+        },
+      }).then(response => {
+        window.location.reload();
       });
     },
   },
