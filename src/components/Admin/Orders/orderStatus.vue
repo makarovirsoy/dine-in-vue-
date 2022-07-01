@@ -55,12 +55,20 @@ export default {
   },
 
   created() {
-    axios.get(url_api + 'api/orders/' + 68, {
-      headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
-    }).then(response => {
-      this.$data.products = JSON.parse(response.data.cart);
-      this.$data.order = response.data;
-    });
+    this.loadOrders();
+  },
+
+
+  watch: {
+    products: {
+      handler(n, o) {
+        console.log(this.$data.products.length);
+        if (this.$data.products.length === 0){
+        this.updateStatus();
+        }
+      },
+      deep: true,
+    },
   },
 
   methods: {
@@ -70,7 +78,30 @@ export default {
         return index !== id;
       });
     },
-  }
 
+    updateStatus(){
+      axios.put(url_api + 'api/orders/' + 68, {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookies.get('token'),
+        },
+        data: { status: 'done'}
+      }).then(response => {
+        this.$data.products = JSON.parse(response.data.cart);
+        this.$data.order = response.data;
+      });
+    },
+
+    loadOrders(){
+      axios.get(url_api + 'api/orders', {
+        headers: {
+          Authorization: 'Bearer ' + this.$cookies.get('token'),
+          status : 'payed',
+        }
+      }).then(response => {
+        this.$data.products = JSON.parse(response.data.cart);
+        this.$data.order = response.data;
+      });
+    }
+  }
 }
 </script>

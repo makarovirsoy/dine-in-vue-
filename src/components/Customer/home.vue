@@ -834,16 +834,10 @@ export default {
         order: this.$data.checkoutForm,
         cart: this.$data.cart,
       };
+
       axios.post(url_api + "api/orders", request).then((response) => {
         this.$data.cart = [];
         this.closeCheckoutModal();
-        this.$router.push({
-          name: "payment",
-          params: {
-            productsCount: this.$data.cartProducts,
-          },
-        });
-
         this.$cookies.set("order_id", response.data);
       });
     },
