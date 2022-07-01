@@ -583,7 +583,7 @@
                     "
                   />
 
-                  <label class="mb-4">Tishnummer : {{this.$data.checkoutForm.table}}</label>
+                  <label class="mb-4">Tishnummer : {{ this.$data.checkoutForm.table }}</label>
 
 
                   <label>Zahlungsmethode</label>
@@ -700,13 +700,13 @@ export default {
       cart: [],
       checkoutForm: {
         table: this.$route.params.id,
-        payment: "paypal",
-        comment: "bitte pizza schneiden",
+        payment: null,
+        comment: "kein Salz",
         sum: 0,
         client: {
-          name: "Youssef Ben Abdallah",
-          email: "youssef@gmail.com",
-          phone: "+49FXXXZZZFFF",
+          name: "Student " + this.$route.params.id,
+          email: "amTisch" + this.$route.params.id + "@gmail.com",
+          phone: "+49958827622",
         },
       },
     };
@@ -829,17 +829,33 @@ export default {
     },
 
     postOrder() {
+      console.log(this.$data.checkoutForm.payment);
       this.closeCheckoutModal();
+
+      let Orderstatus = 'pending';
+
+      if (this.$data.checkoutForm.payment === 'paypal') {
+        Orderstatus = 'payed';
+      }
+
       const request = {
         order: this.$data.checkoutForm,
         cart: this.$data.cart,
+        status: Orderstatus,
       };
 
-      axios.post(url_api + "api/orders", request).then((response) => {
+      axios.post(url_api + "api/orders", request).then((response, orderStatus) => {
         this.$data.cart = [];
         this.closeCheckoutModal();
-        this.$cookies.set("order_id", response.data);
-      });
+        if (orderStatus === 'payed') {
+          this.$router.push({
+            name: "payment",
+            params: {
+              productsCount: this.$data.cartProducts,
+            },
+          });
+        }
+      })
     },
   },
 
