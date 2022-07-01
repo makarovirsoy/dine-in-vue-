@@ -62,7 +62,6 @@ export default {
   watch: {
     products: {
       handler(n, o) {
-        console.log(this.$data.products.length);
         if (this.$data.products.length === 0){
         this.updateStatus();
         }
@@ -80,14 +79,13 @@ export default {
     },
 
     updateStatus(){
-      axios.put(url_api + 'api/orders/' + 68, {
+      axios.put(url_api + 'api/orders/updatestatus/' + 68, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
         },
         data: { status: 'done'}
       }).then(response => {
-        this.$data.products = JSON.parse(response.data.cart);
-        this.$data.order = response.data;
+        console.log('order updated');
       });
     },
 
