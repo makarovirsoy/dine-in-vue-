@@ -591,15 +591,12 @@
                     <input
                         id="paypal"
                         type="radio"
-                        name="paypal"
+                        name="payment"
                         value="paypal"
                         checked
                         v-model="this.$data.checkoutForm.payment"
                     />
-                    <label
-                        for="radio1"
-                        class="ml-2 flex items-center cursor-pointer"
-                    >
+                    <label for="radio1" class="ml-2 flex items-center cursor-pointer">
                       Stripe</label
                     >
                   </div>
@@ -608,7 +605,7 @@
                     <input
                         id="cash"
                         type="radio"
-                        name="cash"
+                        name="payment"
                         value="cash"
                         v-model="this.$data.checkoutForm.payment"
                     />
@@ -832,19 +829,19 @@ export default {
       console.log(this.$data.checkoutForm.payment);
       this.closeCheckoutModal();
 
-      let Orderstatus = 'pending';
+      let orderStatus = 'pending';
 
       if (this.$data.checkoutForm.payment === 'paypal') {
-        Orderstatus = 'payed';
+        orderStatus = 'payed';
       }
 
       const request = {
         order: this.$data.checkoutForm,
         cart: this.$data.cart,
-        status: Orderstatus,
+        status: orderStatus,
       };
 
-      axios.post(url_api + "api/orders", request).then((response, orderStatus) => {
+      axios.post(url_api + "api/orders", request).then((response) => {
         this.$data.cart = [];
         this.closeCheckoutModal();
         if (orderStatus === 'payed') {
