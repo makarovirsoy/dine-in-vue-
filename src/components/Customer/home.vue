@@ -583,23 +583,8 @@
                     "
                   />
 
-                  <label>Tishnummer</label>
-                  <input
-                      placeholder="tish"
-                      type="number"
-                      id="table"
-                      v-model="this.$data.checkoutForm.table"
-                      class="
-                      bg-orange-50
-                      border border-orange-300
-                      text-orange-900 text-xl
-                      rounded-lg
-                      focus:ring-orange-500 focus:border-orange-500
-                      block
-                      p-2
-                      mb-4
-                    "
-                  />
+                  <label class="mb-4">Tishnummer : {{this.$data.checkoutForm.table}}</label>
+
 
                   <label>Zahlungsmethode</label>
                   <div class="flex items-center mr-4 mb-4">
@@ -714,7 +699,7 @@ export default {
       cartProducts: 0,
       cart: [],
       checkoutForm: {
-        table: "1",
+        table: this.$route.params.id,
         payment: "paypal",
         comment: "bitte pizza schneiden",
         sum: 0,
