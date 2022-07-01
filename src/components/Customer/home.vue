@@ -1,4 +1,5 @@
 <template>
+
   <div class="flex flex-col h-screen">
     <div
         class="
@@ -109,19 +110,22 @@
             hover:cursor-pointer
           "
             v-for="category in categories"
-            :key="index"
-            @click="updateCurrentCategory(category)"
-
+            :key="category.id"
         >
-          {{ category.name }}
+          <a :href="'#'+category.id">{{ category.name }}</a>
         </div>
       </div>
     </div>
 
-    <div class="mt-4 mx-4 md:mt-10 md:mx-80 mx-auto" v-if="currentCategory">
-      <div class="flex flex-row flex-wrap justify-center">
-        <div
-            class="
+    <div class="mt-4 mx-4 md:mt-10 md:mx-80 mx-auto">
+      <div v-for="category in categories"
+           :key="category.id" class="text font-bold mt-0 mb-6">
+        <div class="justify-end" >{{ category.name }}</div>
+
+        <div class="flex flex-row flex-wrap justify-start">
+
+          <div :id="category.id"
+               class="
             bg-white
             rounded-xl
             border border-orange-200
@@ -132,28 +136,30 @@
             w-full
             hover:cursor-pointer
           "
-            v-for="dish in currentCategory.dishes"
-            :key="index"
-            @click="openDishModal(dish)"
-        >
-          <img
-              class="rounded-t-lg object-cover h-64 w-full"
-              :src="dish.base64Image"
-              alt="dish "
-          />
-          <div class="p-5">
-            <div class="flex justify-between">
-              <h5 class="text-lg lg:text-2xl font-bold">{{ dish.name }}</h5>
-              <p class="text-xl text-orange-500">{{ dish.price }} €</p>
+               v-for="dish in category.dishes"
+               :key="index"
+               @click="openDishModal(dish)"
+          >
+            <img
+                class="rounded-t-lg object-cover h-64 w-full"
+                :src="dish.base64Image"
+                alt="dish "
+            />
+            <div class="p-5">
+              <div class="flex justify-between">
+                <h5 class="text-lg lg:text-2xl font-bold">{{ dish.name }}</h5>
+                <p class="text-xl text-orange-500">{{ dish.price }} €</p>
+              </div>
+              <p class="mt-2 font-normal text-gray-900 dark:text-gray-400">
+                {{ dish.description }}
+              </p>
             </div>
-            <p class="mt-2 font-normal text-gray-900 dark:text-gray-400">
-              {{ dish.description }}
-            </p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 
   <TransitionRoot as="template" :show="this.$data.showDish">
     <Dialog as="div" class="relative z-10" @close="this.$data.showDish = false">
@@ -661,6 +667,10 @@
   </TransitionRoot>
 </template>
 
+<style>
+@import './home.css';
+</style>
+
 <script>
 import {
   Dialog,
@@ -673,6 +683,7 @@ import {XIcon} from "@heroicons/vue/outline";
 import axios from "axios";
 import {url_api, url_front} from "../../const/api";
 import VueCookies from "vue-cookies";
+
 
 export default {
   name: "home",
@@ -855,7 +866,7 @@ export default {
               productsCount: this.$data.cartProducts,
             },
           });
-        } else{
+        } else {
           alert("bitte die bestellnummer an der Kasse zeigen: " + this.$cookies.get('order_id'));
           this.$router.push('/order');
         }

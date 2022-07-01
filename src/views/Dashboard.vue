@@ -7,6 +7,6 @@ export default {
 }
 </script>
 
-<template>
+<template >
   <Layout/>
 </template>
