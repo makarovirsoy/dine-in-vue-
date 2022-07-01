@@ -63,8 +63,8 @@ export default {
     products: {
       handler(n, o) {
         console.log(this.$data.products.length);
-        if (this.$data.products.length === 0){
-        this.updateStatus();
+        if (this.$data.products.length === 0) {
+          this.updateStatus();
         }
       },
       deep: true,
@@ -74,28 +74,27 @@ export default {
   methods: {
     done(id) {
       this.$data.productsDone.push(this.products[id]);
-      this.$data.products = this.$data.products.filter(function(value, index, arr=this.$data.products){
+      this.$data.products = this.$data.products.filter(function (value, index, arr = this.$data.products) {
         return index !== id;
       });
     },
 
-    updateStatus(){
-      axios.put(url_api + 'api/orders/updatestatus/' + this.$data.order.id, {
+    updateStatus() {
+      axios.put(url_api + 'api/orders/updatestatus/' + this.$data.order.id, {status: 'done'}, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
         },
-        data: { status: 'done'}
       }).then(response => {
         this.$data.products = JSON.parse(response.data.cart);
         this.$data.order = response.data;
       });
     },
 
-    loadOrder(){
+    loadOrder() {
       axios.get(url_api + 'api/orders/' + this.$route.params.id, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
-          status : 'payed',
+          status: 'payed',
         }
       }).then(response => {
         this.$data.products = JSON.parse(response.data.cart);
