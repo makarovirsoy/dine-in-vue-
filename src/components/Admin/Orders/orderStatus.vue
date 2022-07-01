@@ -80,14 +80,12 @@ export default {
     },
 
     updateStatus() {
-      axios.put(url_api + 'api/orders/updatestatus/' + this.$data.order.id, {status: 'done'}, {
+      axios.put(url_api + 'api/orders/updatestatus/' + this.$data.order.id, {}, {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
+          status : 'done',
         },
-      }).then(response => {
-        this.$data.products = JSON.parse(response.data.cart);
-        this.$data.order = response.data;
-      });
+      })
     },
 
     loadOrder() {
