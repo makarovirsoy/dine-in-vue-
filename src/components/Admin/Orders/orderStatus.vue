@@ -3,10 +3,15 @@
     <slot>
       <div class="flex flex-row">
         <div class="flex flex-col mb-10 ">
-          <div>Bestellungsnummer : {{ this.order.id }}</div>
-          <div>Tischnummer : {{ this.order.table }}</div>
-          <div>Kommentar : {{ this.order.comment }}</div>
-          <div>kunde : {{ this.order.client.name }}</div>
+          <div v-for="(order,index) in this.$data.orders" class="p-2 border border-black rounded m-2">
+            <div class="border border-black rounded p-2" v-if="index==0">
+              <div>Bestellungsnummer : {{ this.order.id }}</div>
+              <div>Tischnummer : {{ this.order.table }}</div>
+              <div>Kommentar : {{ this.order.comment }}</div>
+              <div class="mb-4">kunde : {{ this.order.client.name }}</div>
+            </div>
+            <div v-else>Bestellungsnummer : {{order.id}}</div>
+          </div>
         </div>
         <div class="ml-20 py-4 flex-grow flex flex-col  items-center">
           <div class="items-center">
@@ -48,6 +53,7 @@ export default {
   data() {
     return {
       order: null,
+      orders: null,
       ordersDone: null,
       products: [],
       productsDone: []
@@ -55,14 +61,13 @@ export default {
   },
 
   created() {
-    this.loadOrder();
+    this.loadOrders();
   },
 
 
   watch: {
     products: {
       handler(n, o) {
-        console.log(this.$data.products.length);
         if (this.$data.products.length === 0) {
           this.updateStatus();
         }
@@ -85,20 +90,27 @@ export default {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
           status : 'done',
         },
-      })
+      }).then(response => {
+        this.loadOrders();
+
+      });
     },
 
-    loadOrder() {
-      axios.get(url_api + 'api/orders/' + this.$route.params.id, {
+    loadOrders() {
+      axios.get(url_api + 'api/orders', {
         headers: {
           Authorization: 'Bearer ' + this.$cookies.get('token'),
           status: 'payed',
         }
       }).then(response => {
-        this.$data.products = JSON.parse(response.data.cart);
-        this.$data.order = response.data;
+        this.$data.orders = response.data;
+        this.$data.order = this.$data.orders[0];
+        console.log(this.$data.order)
+        this.$data.products = JSON.parse(this.$data.order.cart);
+        this.$data.productsDone= [];
       });
     }
+
   }
 }
 </script>

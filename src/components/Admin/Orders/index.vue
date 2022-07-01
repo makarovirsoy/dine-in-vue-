@@ -2,7 +2,12 @@
   <Layout>
     <slot>
       <div class="ml-20 py-4 flex-grow flex flex-col">
-        <h1 class="block mb-4 mx-auto  text-xl font-medium text-purple-600">Bestellungen</h1>
+        <h1 class="block mb-4 mx-auto  text-xl font-medium text-purple-600 hover:cursor-pointer">
+        <router-link to="/orderstatus">
+          Bestellungen
+        </router-link>
+        </h1>
+
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg mx-20">
           <table class="w-full text-sm text-left text-gray-500 ">
             <thead class="text-xs text-purple-500 uppercase bg-purple-100 ">

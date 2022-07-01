@@ -25,7 +25,7 @@ const router = createRouter({
             component: () => import('../components/Admin/Orders/index.vue')
         },
         {
-            path: '/orderStatus/:id',
+            path: '/orderStatus',
             name: 'orderStatus',
             component: () => import('../components/Admin/Orders/orderStatus.vue'),
             props: true,
