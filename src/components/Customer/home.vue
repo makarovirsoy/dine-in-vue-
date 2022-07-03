@@ -120,9 +120,9 @@
     <div class="mt-4 mx-4 md:mt-10 md:mx-80 mx-auto">
       <div v-for="category in categories"
            :key="category.id" class="text font-bold mt-0 mb-6">
-        <div class="justify-end" >{{ category.name }}</div>
 
-        <div class="flex flex-row flex-wrap justify-start">
+        <div class="text-center m-4 p-2 border border-orange-400 rounded-xl text-orange-500 hover:cursor-pointer" >{{ category.name }}</div>
+        <div class="flex flex-row flex-wrap justify-center scroll-auto mb-16">
 
           <div :id="category.id"
                class="
@@ -135,6 +135,7 @@
             xl:w-1/4
             w-full
             hover:cursor-pointer
+
           "
                v-for="dish in category.dishes"
                :key="index"
