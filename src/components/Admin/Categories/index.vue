@@ -16,6 +16,9 @@
                 Kategorien
               </th>
               <th scope="col" class="px-6 py-3">
+                Position
+              </th>
+              <th scope="col" class="px-6 py-3">
                 id
               </th>
               <th scope="col" class="px-6 py-3 ">
@@ -30,6 +33,10 @@
             <tr class="border-b  odd:bg-white even:bg-gray-50 " v-for="category in this.$data.categories">
               <th scope="row" class="px-6 py-4 font-medium text-fuchsia-900 ">
                 {{ category.name }}
+              </th>
+              <th scope="row" class="px-6 py-4 font-medium text-fuchsia-900 ">
+                <button @click="toTop(category.position)">Top</button> {{" "}}
+                <button @click="toBottom(category.position)">Button</button>
               </th>
               <td class="px-6 py-4 text-fuchsia-400">
                 {{ category.id }}
@@ -99,6 +106,13 @@ export default {
         return
       }
       axios.delete(url_api + "api/categories/" + id, {
+        headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
+      }).then(response => {
+        window.location.reload()
+      })
+    },
+    toTop(id) {
+      axios.put(url_api + "api/categories/top/" + id, {
         headers: {Authorization: 'Bearer ' + this.$cookies.get('token')}
       }).then(response => {
         window.location.reload()
